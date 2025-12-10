@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Desafío de la Terminal - CMD Challenge</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reset.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/theme/black.css">
+  <style>
+    .reveal h1, .reveal h2 {
+      text-transform: none;
+    }
+    .reveal .slides {
+      text-align: left;
+    }
+    .reveal .center-slide {
+      text-align: center;
+    }
+    .reveal code {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.2em 0.4em;
+      border-radius: 3px;
+    }
+    .reveal pre code {
+      padding: 1em;
+    }
+    .winner-slide {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    .instruction-number {
+      color: #42affa;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      
+      <!-- Slide 0: Portada -->
+      <section class="center-slide" data-background-gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)">
+        <h1>🖥️ El Desafío de la Terminal</h1>
+        <h3>CMD Challenge</h3>
+        <p>Domina la línea de comandos como un profesional</p>
+      </section>
+
+      <!-- Slide 1: Introducción -->
+      <section>
+        <h2>Bienvenidos al Desafío 🚀</h2>
+        <p>Este desafío está diseñado para que te familiarices con <strong>bash/línea de comandos</strong>.</p>
+        <p>Aprenderás los comandos más usados que todo desarrollador necesita conocer para tener éxito en la vida real.</p>
+        <br>
+        <p><em>💡 Recuerda: cada error es una oportunidad de aprender</em></p>
+      </section>
+
+      <!-- Slide 2: Reglas del juego -->
+      <section>
+        <h2>📋 Reglas del Desafío</h2>
+        <ul>
+          <li>Cada slide tiene una <strong>instrucción</strong></li>
+          <li>Debes completar la tarea usando <strong>comandos de terminal</strong></li>
+          <li>El <strong>primero en terminar</strong> gana cada ronda</li>
+          <li>El ganador debe <strong>explicar su solución</strong> a la clase</li>
+          <li>¡No copies y pegues! Escribe los comandos tú mismo</li>
+        </ul>
+      </section>
+
+      <!-- Slide 3: Comandos básicos -->
+      <section>
+        <h2>🔧 Comandos que necesitarás</h2>
+        <pre><code class="bash" data-trim>
+pwd       # Mostrar directorio actual
+ls        # Listar archivos
+cd        # Cambiar directorio
+cat       # Mostrar contenido de archivo
+mkdir     # Crear directorio
+cp        # Copiar archivos
+mv        # Mover/renombrar archivos
+rm        # Eliminar archivos
+clear     # Limpiar la terminal
+vi/vim    # Editor de texto
+        </code></pre>
+      </section>
+
+      <!-- Slide 4: Preparación -->
+      <section>
+        <h2>🎯 Antes de empezar...</h2>
+        <p>Asegúrate de tener:</p>
+        <ul>
+          <li>✅ Terminal abierta</li>
+          <li>✅ Carpeta <code>thecmdchallenge/</code> descargada</li>
+          <li>✅ Conocimientos básicos de navegación en terminal</li>
+        </ul>
+        <br><br>
+        <p class="center-slide"><strong>¿Listos? ¡Comencemos! 🏁</strong></p>
+      </section>
+
+      <!-- Instrucción 1 -->
+      <section data-background-color="#2c3e50">
+        <h2><span class="instruction-number">Instrucción #1</span></h2>
+        <p><strong>Entra dentro</strong> del directorio <code>thecmdchallenge/</code></p>
+        <br>
+        <p>💡 <em>Pista: Necesitas cambiar de directorio</em></p>
+      </section>
+
+      <!-- Instrucción 2 -->
+      <section class="winner-slide">
+        <h2><span class="instruction-number">🏆 Tiempo de Ganadores</span></h2>
+        <p>¿Quién ganó el desafío anterior?</p>
+        <br>
+        <p>Cada ganador debe <strong>explicar</strong> a toda la clase qué hizo para completar el desafío.</p>
+        <br>
+        <p><em>Aprendemos compartiendo conocimiento 📚</em></p>
+      </section>
+
+      <!-- Instrucción 3 -->
+      <section data-background-color="#2c3e50">
+        <h2><span class="instruction-number">Instrucción #3</span></h2>
+        <p><strong>Imprime</strong> en pantalla la ruta del directorio actual</p>
+        <br>
+        <p>💡 <em>Pista: ¿Dónde estoy ahora?</em></p>
+      </section>
+
+      <!-- Instrucción 4 -->
+      <section data-background-color="#2c3e50">
+        <h2><span class="instruction-number">Instrucción #4</span></h2>
+        <p><strong>Lista todos</strong> los archivos del <strong>directorio actual</strong> incluyendo los ocultos</p>
+        <br>
+        <p>💡 <em>Pista: Los archivos ocultos empiezan con punto (.)</em></p>
+      </section>
+
+      <!-- Instrucción 5 -->
+      <section data-background-color="#2c3e50">
+        <h2><span class="instruction-number">Instrucción #5</span></h2>
+        <p>Ahora <strong>lista todos</strong> los archivos dentro del proyecto, de forma recursiva (todos los archivos en la jerarquía).</p>
+        <br>
+        <p>💡 <em>Pista: Necesitas ver dentro de todas las carpetas</em></p>
+      </section>
+
+      <!-- Instrucción 6 -->
+      <section data-background-color="#2c3e50">
+        <h2><span class="instruction-number">Instrucción #6</span></h2>
+        <p><strong>Limpia</strong> todo el desorden de la línea de comandos</p>
+        <br>
+        <p>💡 <em>Pista: Pantalla limpia, mente clara</em></p>
+      </section>
+
+      <!-- Instrucción 7 -->
+      <section data-background-color="#2c3e50">
+        <h2><span class="instruction-number">Instrucción #7</span></h2>
+        <p><strong>Ve</strong> al último nivel debajo de la carpeta <strong>small-name</strong> y <strong>muestra</strong> en la consola el contenido del archivo <code>trophy.txt</code>.</p>
+        <br>
+        <p>💡 <em>Pista: Necesitas navegar y luego leer un archivo</em></p>
+      </section>
+
+      <!-- Instrucción 8 -->
+      <section data-background-color="#2c3e50">
+        <h2><span class="instruction-number">Instrucción #8</span></h2>
+        <p><strong>Sube</strong> un nivel y entra al directorio <strong>funcode</strong> y <strong>lista todos</strong> los archivos con la extensión típica de JavaScript.</p>
+        <br>
+        <p>💡 <em>Pista: ¿Qué extensión usan los archivos JS?</em></p>
+      </section>
+
+      <!-- Instrucción 9 -->
+      <section data-background-color="#2c3e50">
+        <h2><span class="instruction-number">Instrucción #9</span></h2>
+        <p><strong>Crea</strong> un nuevo directorio dentro de <code>funcode/the-most-funny/</code> llamado "<strong>not-that-funny</strong>".</p>
+        <br>
+        <p>💡 <em>Pista: Necesitas crear una carpeta</em></p>
+      </section>
+
+      <!-- Instrucción 10 -->
+      <section data-background-color="#2c3e50">
+        <h2><span class="instruction-number">Instrucción #10</span></h2>
+        <p><strong>Crea una copia</strong> de <strong>the-mostboring-text.txt</strong> (lo encuentras dentro de los hijos de <code>/boringfolder/</code>) y <strong>nómbrala</strong> <strong>lol.txt</strong>.</p>
+        <br>
+        <p>💡 <em>Pista: Necesitas copiar un archivo</em></p>
+      </section>
+
+      <!-- Instrucción 11 -->
+      <section data-background-color="#2c3e50">
+        <h2><span class="instruction-number">Instrucción #11</span></h2>
+        <p><strong>Mueve</strong> <code>funcode/kids.jpg</code> dentro de <code>funcode/images/hello/</code></p>
+        <br>
+        <p>💡 <em>Pista: Mover es diferente a copiar</em></p>
+      </section>
+
+      <!-- Instrucción 12 -->
+      <section data-background-color="#2c3e50">
+        <h2><span class="instruction-number">Instrucción #12</span></h2>
+        <p><strong>Elimina</strong> el directorio "<strong>small-name</strong>".</p>
+        <br>
+        <p>💡 <em>Pista: ¡Cuidado! Asegúrate de estar en el lugar correcto</em></p>
+      </section>
+
+      <!-- Instrucción 13 -->
+      <section data-background-color="#2c3e50">
+        <h2><span class="instruction-number">Instrucción #13</span></h2>
+        <p><strong>Imprime</strong> en la línea de comandos el contenido de <code>the-ultimate-joke.txt</code>.</p>
+        <br>
+        <p>💡 <em>Pista: Lee el contenido del archivo</em></p>
+      </section>
+
+      <!-- Instrucción 14 -->
+      <section data-background-color="#2c3e50">
+        <h2><span class="instruction-number">Instrucción #14</span></h2>
+        <p><strong>Elimina</strong> todo el contenido de <strong>boringfolder</strong>, es extremadamente aburrido...</p>
+        <br>
+        <p>💡 <em>Pista: Necesitas eliminar múltiples archivos</em></p>
+      </section>
+
+      <!-- Instrucción 15 -->
+      <section data-background-color="#2c3e50">
+        <h2><span class="instruction-number">Instrucción #15</span></h2>
+        <p><strong>Abre</strong> el archivo <code>kamehameha/dragon-ball-jokes.md</code> usando el <strong>editor de texto VI de línea de comandos</strong></p>
+        <br>
+        <p>💡 <em>Pista: VI es un editor poderoso pero requiere práctica</em></p>
+      </section>
+
+      <!-- Instrucción 16 -->
+      <section data-background-color="#2c3e50">
+        <h2><span class="instruction-number">Instrucción #16</span></h2>
+        <p><strong>Actualiza</strong> el archivo <code>kamehameha/dragon-ball-jokes.md</code> eliminando el primer chiste que lees en el archivo, finalmente <strong>guarda y cierra</strong> el editor de texto.</p>
+        <br>
+        <p>💡 <em>Pista: En VI, presiona 'i' para insertar, 'ESC' para salir del modo edición, ':wq' para guardar y salir</em></p>
+      </section>
+
+      <!-- Slide Final: Felicitaciones -->
+      <section class="center-slide" data-background-gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)">
+        <h1>🎉 ¡Felicitaciones!</h1>
+        <h3>Has completado el Desafío de la Terminal</h3>
+        <br>
+        <p>Ahora eres más hábil con la línea de comandos</p>
+        <p>Sigue practicando y mejorando 💪</p>
+      </section>
+
+      <!-- Slide Extra: Recursos -->
+      <section>
+        <h2>📚 Recursos Adicionales</h2>
+        <ul>
+          <li><strong>Cheat Sheet de Comandos:</strong> Crea tu propia hoja de referencia</li>
+          <li><strong>Práctica diaria:</strong> Usa la terminal para tareas cotidianas</li>
+          <li><strong>Explora más:</strong> Aprende comandos avanzados como <code>grep</code>, <code>find</code>, <code>awk</code></li>
+          <li><strong>Personaliza tu terminal:</strong> Instala <code>oh-my-zsh</code> o similar</li>
+        </ul>
+      </section>
+
+      <!-- Slide Extra: Consejos finales -->
+      <section class="center-slide">
+        <h2>💡 Consejos Finales</h2>
+        <blockquote>
+          "La terminal no es tu enemiga, es tu mejor amiga"
+        </blockquote>
+        <br>
+        <ul>
+          <li>✅ Usa TAB para autocompletar</li>
+          <li>✅ Las flechas ↑↓ recuperan comandos anteriores</li>
+          <li>✅ <code>man comando</code> muestra el manual de cualquier comando</li>
+          <li>✅ <code>--help</code> muestra ayuda rápida</li>
+        </ul>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/highlight/highlight.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      center: true,
+      slideNumber: true,
+      transition: 'slide',
+      plugins: [ RevealHighlight ]
+    });
+  </script>
+</body>
+</html>
