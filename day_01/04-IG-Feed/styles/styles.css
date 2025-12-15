@@ -1,0 +1,110 @@
+:root {
+    --clr-white: #f1f1f1;
+    --clr-black: #232323;
+    --clr-shadow-80: rgba(0,0,0,.8);
+    --clr-shadow-50: rgba(0,0,0,.5);
+    --clr-shadow-30: rgba(0,0,0,.3);
+    --clr-bg-postboard: #d2d2d2;
+    --clr-sub-text: #808080;
+}
+
+html{
+    min-width: 320px;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, sans-serif;
+    box-sizing: border-box;
+    background-color: var(--clr-bg-postboard);
+}
+
+.header-title{
+    height: 10vh;
+    width: 100%;
+    padding: 10px;
+    align-content: center;
+    text-align: center;
+    background-color: var(--clr-white);
+    box-shadow: 0px 5px 10px var(--clr-shadow-50);
+}
+.title {
+    margin: 0;
+    font-size: 3rem;
+    text-shadow: 5px 5px 3px var(--clr-shadow-30);
+}
+
+.post-board {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 800px;
+    min-width: 320px;
+    margin: 0 auto;
+}
+
+.card {
+    margin-top: 3rem;
+    background-color: var(--clr-white);
+    width: 80%;
+    height: 500px;
+    max-width: 500px;
+    overflow: hidden;
+    box-shadow: 0px 0px 15px var(--clr-shadow-80);
+    border-radius: 2%;
+    cursor: pointer;
+    transition: box-shadow 500ms ease;
+
+    &:hover {
+        box-shadow: 0px 0px 5px var(--clr-shadow-50);
+    }
+}
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+}
+.cardImageContainer {
+    margin: 0;
+    width: 100%;
+    height: 70%;
+}
+.card-img {
+    width: 100%;
+    height: 100%;
+    max-width: 500px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.card-footer {
+    padding: 0 1rem;
+}
+
+.container-footer {
+    margin-top: 20px;
+    height: 4rem;
+    align-content: center;
+    text-align: center;
+    background-color: var(--clr-white);
+}
+.cardDate{
+    color: var(--clr-sub-text);
+}
+
+
+@media (max-width: 620px){
+    .title {
+        font-size: 2rem;
+    }
+
+    .card {
+        height: 300px;
+    }
+    .cardImageContainer{
+        height: 50%;
+    }
+}
