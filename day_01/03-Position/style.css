@@ -1,0 +1,20 @@
+body {
+  padding: 0;
+  height: 100vh;
+  font-family: system-ui, sans-serif;
+}
+
+.wraper {
+  margin: 60px 0 0 60px;
+  border: 3px dashed red;
+  width: 500px;
+  height: 500px;
+}
+
+.box {
+  color: #000;
+  background-color: lightblue;
+  border: 3px solid blue;
+  height: 100px;
+  width: 100px;
+}
