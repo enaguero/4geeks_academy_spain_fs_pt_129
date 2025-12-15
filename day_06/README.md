@@ -34,47 +34,97 @@ Cuando haces merge, Git:
 - Es más seguro y fácil de entender para principiantes
 - Los conflictos se resuelven una sola vez
 
-**Ejemplo visual de merge:**
+#### Ejemplo Visual: Situación Inicial
 
 ```mermaid
 gitGraph
-    commit id: "A"
-    commit id: "B"
+    commit id: "A (Initial)"
+    commit id: "B (Add README)"
     branch feature
-    commit id: "C (feature)"
-    commit id: "D (feature)"
+    checkout feature
+    commit id: "C (Add login)"
+    commit id: "D (Add logout)"
     checkout main
-    commit id: "E (main)"
-    merge feature id: "F (merge commit)" tag: "Merge!"
-    commit id: "G"
+    commit id: "E (Fix bug)"
 ```
 
-**Ejemplo práctico:**
+**Comandos para crear este escenario:**
 
 ```bash
-# Estás en tu rama feature
-git checkout feature
+# 1. Crear el repositorio y commits iniciales
+git init
+echo "Project" > README.md
+git add . && git commit -m "A: Initial commit"          # Commit A
+echo "# Features" >> README.md
+git add . && git commit -m "B: Add README"              # Commit B
 
-# Quieres traer los cambios de main a tu rama
-git merge main
+# 2. Crear rama feature y hacer commits
+git checkout -b feature
+echo "login()" > auth.js
+git add . && git commit -m "C: Add login"               # Commit C
+echo "logout()" >> auth.js
+git add . && git commit -m "D: Add logout"              # Commit D
 
-# Git crea un commit de merge automáticamente
-# Si hay conflictos, los resuelves y haces:
-git add .
-git commit -m "Merge main into feature"
+# 3. Mientras tanto, en main hubo un cambio
+git checkout main
+echo "fix" > bugfix.js
+git add . && git commit -m "E: Fix bug"                 # Commit E
 ```
 
-**Resultado del historial:**
+#### Después de Git Merge
+
+```mermaid
+gitGraph
+    commit id: "A (Initial)"
+    commit id: "B (Add README)"
+    branch feature
+    checkout feature
+    commit id: "C (Add login)"
+    commit id: "D (Add logout)"
+    checkout main
+    commit id: "E (Fix bug)"
+    merge feature id: "F (Merge)" tag: "2 padres"
+    commit id: "G (Continue)"
 ```
-* F - Merge main into feature (tiene 2 padres: D y E)
+
+**Comandos para hacer el merge:**
+
+```bash
+# Estamos en main, queremos integrar feature
+git checkout main
+git merge feature
+
+# Git crea automáticamente el commit F
+# Si hay conflictos:
+# 1. Editas los archivos en conflicto
+# 2. git add archivo-resuelto.js
+# 3. git commit -m "F: Merge feature into main"
+
+# Continuar trabajando
+echo "new feature" > new.js
+git add . && git commit -m "G: Continue work"           # Commit G
+```
+
+**Ver el historial resultante:**
+
+```bash
+git log --oneline --graph --all
+```
+
+**Salida:**
+```
+*   G - Continue work
+*   F - Merge feature into main (2 padres: D y E)
 |\  
-| * E - Cambios en main
-* | D - Tu feature
-* | C - Tu feature
+| * D - Add logout
+| * C - Add login
+* | E - Fix bug
 |/  
-* B - Base común
-* A - Inicio
+* B - Add README
+* A - Initial commit
 ```
+
+Nota cómo el commit F tiene **dos líneas** que suben ("|\\"): una hacia D y otra hacia E.
 
 ### Git Rebase
 
@@ -99,47 +149,109 @@ Cuando haces rebase, Git:
 - Si hay conflictos, debes resolverlos commit por commit
 - Requiere más experiencia
 
-**Ejemplo visual de rebase:**
+#### Ejemplo Visual: Situación Inicial (igual que merge)
 
 ```mermaid
 gitGraph
-    commit id: "A"
-    commit id: "B"
-    commit id: "E (main)"
-    commit id: "C' (feature rebaseado)"
-    commit id: "D' (feature rebaseado)" tag: "Lineal!"
+    commit id: "A (Initial)"
+    commit id: "B (Add README)"
+    branch feature
+    checkout feature
+    commit id: "C (Add login)"
+    commit id: "D (Add logout)"
+    checkout main
+    commit id: "E (Fix bug)"
 ```
 
-**Ejemplo práctico:**
+**Comandos para crear este escenario:**
 
 ```bash
-# Estás en tu rama feature
-git checkout feature
+# Mismo escenario que el ejemplo de merge
+git init
+echo "Project" > README.md
+git add . && git commit -m "A: Initial commit"          # Commit A
+echo "# Features" >> README.md
+git add . && git commit -m "B: Add README"              # Commit B
 
-# Quieres "mover" tus commits después de los de main
+git checkout -b feature
+echo "login()" > auth.js
+git add . && git commit -m "C: Add login"               # Commit C
+echo "logout()" >> auth.js
+git add . && git commit -m "D: Add logout"              # Commit D
+
+git checkout main
+echo "fix" > bugfix.js
+git add . && git commit -m "E: Fix bug"                 # Commit E
+```
+
+#### Después de Git Rebase
+
+```mermaid
+gitGraph
+    commit id: "A (Initial)"
+    commit id: "B (Add README)"
+    commit id: "E (Fix bug)"
+    commit id: "C' (Add login)" type: HIGHLIGHT
+    commit id: "D' (Add logout)" type: HIGHLIGHT tag: "Lineal!"
+```
+
+**Comandos para hacer el rebase:**
+
+```bash
+# Estamos en feature, queremos "mover" nuestros commits después de E
+git checkout feature
 git rebase main
 
-# Git aplica tus commits uno por uno
-# Si hay conflictos en algún commit:
-# 1. Resuelves el conflicto
-git add .
-# 2. Continúas el rebase
-git rebase --continue
+# Git hace internamente:
+# 1. Guarda temporalmente C y D
+# 2. Mueve feature a donde está main (commit E)
+# 3. Aplica C creando C' (nuevo hash)
+# 4. Aplica D creando D' (nuevo hash)
 
-# Si quieres cancelar todo:
+# Si hay conflictos durante la aplicación de C:
+#   - Editas y resuelves el conflicto
+#   - git add archivo-resuelto.js
+#   - git rebase --continue
+# Si hay conflictos durante la aplicación de D:
+#   - Repites el proceso
+#   - git add archivo-resuelto.js
+#   - git rebase --continue
+
+# Para abortar en cualquier momento:
 git rebase --abort
 ```
 
-**Resultado del historial:**
-```
-* D' - Tu feature (reescrito)
-* C' - Tu feature (reescrito)
-* E - Cambios en main
-* B - Base común
-* A - Inicio
+**Ver el historial resultante:**
+
+```bash
+git log --oneline --graph --all
 ```
 
-Nota cómo C' y D' son "nuevos" commits (tienen diferente ID) aunque tengan el mismo contenido que C y D.
+**Salida:**
+```
+* D' - Add logout (nuevo hash: abc123)
+* C' - Add login (nuevo hash: def456)
+* E - Fix bug
+* B - Add README
+* A - Initial commit
+```
+
+**Comparación de hashes ANTES y DESPUÉS del rebase:**
+
+```bash
+# ANTES del rebase (en feature):
+# C = 789xyz
+# D = 456uvw
+
+# DESPUÉS del rebase (en feature):
+# C' = def456  (DIFERENTE! Mismo contenido, nuevo hash)
+# D' = abc123  (DIFERENTE! Mismo contenido, nuevo hash)
+```
+
+Nota cómo:
+1. El historial es **completamente lineal** (no hay bifurcaciones)
+2. C' y D' son **nuevos commits** con hashes diferentes
+3. Los commits originales C y D ya no existen en el historial
 
 ### ¿Cuándo usar cada uno?
 
