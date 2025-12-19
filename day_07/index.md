@@ -572,3 +572,777 @@ Ahora que conoces los conceptos básicos, es momento de practicar. En la carpeta
 - `step5-final-project.html`: Proyecto integrador
 
 **¡Adelante! 🚀**
+
+---
+
+## Cómo Trabajan Juntos HTML, CSS y JavaScript
+
+### La Trinidad del Desarrollo Web
+
+Cuando navegas por internet, tu navegador trabaja con **tres tecnologías fundamentales** que funcionan en perfecta armonía:
+
+- **HTML** (HyperText Markup Language): La **estructura** - Los huesos
+- **CSS** (Cascading Style Sheets): La **presentación** - La piel y ropa
+- **JavaScript**: El **comportamiento** - Los músculos y cerebro
+
+### Analogía: Construyendo una Casa
+
+```
+HTML  = Estructura (paredes, puertas, ventanas)
+CSS   = Decoración (pintura, muebles, cortinas)
+JS    = Funcionalidad (luz, agua, calefacción)
+```
+
+---
+
+## Orden de Procesamiento del Navegador
+
+### ¿Qué sucede cuando visitas una página web?
+
+Cuando escribes una URL en el navegador (por ejemplo, `www.ejemplo.com`), ocurre la siguiente secuencia:
+
+#### **1. Solicitud HTTP**
+```
+Navegador → Solicitud → Servidor
+           ↓
+     "Dame index.html"
+```
+
+#### **2. El Servidor Responde**
+```
+Servidor → Respuesta → Navegador
+           ↓
+   Archivo index.html
+```
+
+#### **3. Procesamiento del HTML** (Parsing)
+
+El navegador lee el HTML **de arriba hacia abajo**, línea por línea:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mi Página</title>
+    <!-- 1. Primero lee el head -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- 2. Encuentra el CSS y lo solicita al servidor -->
+</head>
+<body>
+    <!-- 3. Luego lee el body -->
+    <h1>Hola Mundo</h1>
+    <button id="miBoton">Click aquí</button>
+    
+    <!-- 4. Encuentra el script al final -->
+    <script src="app.js"></script>
+</body>
+</html>
+```
+
+#### **4. Construcción del DOM (Document Object Model)**
+
+El navegador convierte el HTML en un **árbol de objetos**:
+
+```
+Document
+  └── html
+      ├── head
+      │   ├── title
+      │   └── link (CSS)
+      └── body
+          ├── h1
+          └── button
+```
+
+#### **5. Aplicación del CSS (Rendering)**
+
+El navegador aplica los estilos CSS a cada elemento del DOM:
+
+```css
+/* styles.css */
+h1 {
+    color: blue;
+    font-size: 32px;
+}
+
+button {
+    background-color: green;
+    padding: 10px;
+}
+```
+
+#### **6. Ejecución de JavaScript**
+
+Finalmente, JavaScript se ejecuta y puede **modificar** el DOM y CSS:
+
+```javascript
+// app.js
+const boton = document.getElementById('miBoton');
+boton.addEventListener('click', function() {
+    alert('¡Hola!');
+});
+```
+
+---
+
+## Estrategias de Carga de JavaScript
+
+Existen **tres formas principales** de cargar JavaScript en tu página HTML:
+
+### 1. Script al Final del Body (Tradicional)
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mi Página</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Contenido</h1>
+    <button id="btn">Click</button>
+    
+    <!-- ✅ Script al final -->
+    <script src="app.js"></script>
+</body>
+</html>
+```
+
+**Ventajas**:
+- Simple y funciona siempre
+- HTML y CSS ya están listos cuando se ejecuta JS
+
+**Desventajas**:
+- El navegador no puede empezar a descargar el script hasta llegar al final del HTML
+
+### 2. Script con `defer` (Recomendado)
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mi Página</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- ✅ Script con defer en el head -->
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <h1>Contenido</h1>
+    <button id="btn">Click</button>
+</body>
+</html>
+```
+
+**¿Qué hace `defer`?**
+- El navegador descarga el script **en paralelo** mientras procesa el HTML
+- El script se ejecuta **después** de que el DOM esté completamente construido
+- Los scripts con `defer` se ejecutan en orden
+
+**Timeline con `defer`:**
+```
+HTML parsing:    |===============================|
+                                                ↓ DOM Ready
+Script download: |=====|
+                       ↓ (espera)
+Script execute:                                 |==|
+```
+
+### 3. Script con `async`
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mi Página</title>
+    <!-- Script con async -->
+    <script src="analytics.js" async></script>
+</head>
+<body>
+    <h1>Contenido</h1>
+</body>
+</html>
+```
+
+**¿Qué hace `async`?**
+- El navegador descarga el script **en paralelo**
+- El script se ejecuta **tan pronto como se descarga**
+- No garantiza orden de ejecución
+
+**Timeline con `async`:**
+```
+HTML parsing:    |===============================|
+Script download: |=====|
+                       ↓ (se ejecuta inmediatamente)
+Script execute:        |==|
+HTML parsing:              |==================|
+```
+
+**Usa `async` para**: Scripts independientes como Google Analytics, que no necesitan manipular el DOM
+
+### 4. Módulos JavaScript (Moderno)
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mi Página</title>
+    <!-- ✅ Módulo JavaScript -->
+    <script type="module" src="app.js"></script>
+</head>
+<body>
+    <h1>Contenido</h1>
+    <button id="btn">Click</button>
+</body>
+</html>
+```
+
+**¿Qué hace `type="module"`?**
+- Se comporta como `defer` por defecto (espera a que el DOM esté listo)
+- Permite usar `import` y `export`
+- Tiene su propio scope (no contamina el scope global)
+- Se ejecuta en modo estricto automáticamente
+
+**Ejemplo de módulo:**
+
+**utils.js**
+```javascript
+export function saludar(nombre) {
+    return `Hola, ${nombre}`;
+}
+
+export function sumar(a, b) {
+    return a + b;
+}
+```
+
+**app.js**
+```javascript
+import { saludar, sumar } from './utils.js';
+
+const boton = document.getElementById('btn');
+boton.addEventListener('click', function() {
+    console.log(saludar('Usuario'));
+    console.log(sumar(5, 3));
+});
+```
+
+### Comparación Visual
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ Método         │ Descarga │ Ejecución │ Orden │ DOM Ready │
+├─────────────────────────────────────────────────────────────┤
+│ Final del body │ Bloqueante│ Inmediata │  ✅   │    ✅     │
+│ defer          │ Paralela  │ Después   │  ✅   │    ✅     │
+│ async          │ Paralela  │ Inmediata │  ❌   │    ❌     │
+│ type="module"  │ Paralela  │ Después   │  ✅   │    ✅     │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Recomendaciones**:
+- **Principiantes**: Script al final del body
+- **Producción moderna**: `defer` o `type="module"`
+- **Scripts independientes**: `async`
+
+---
+
+## Conectando JavaScript con HTML
+
+### Método 1: Script Interno
+
+```html
+<!DOCTYPE html>
+<html>
+<body>
+    <h1 id="titulo">Hola</h1>
+    <button onclick="cambiarTexto()">Cambiar</button>
+    
+    <script>
+        function cambiarTexto() {
+            document.getElementById('titulo').textContent = '¡Cambiado!';
+        }
+    </script>
+</body>
+</html>
+```
+
+### Método 2: Script Externo (Recomendado)
+
+**index.html**
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <h1 id="titulo">Hola</h1>
+    <button id="boton">Cambiar</button>
+</body>
+</html>
+```
+
+**app.js**
+```javascript
+function cambiarTexto() {
+    document.getElementById('titulo').textContent = '¡Cambiado!';
+}
+
+const boton = document.getElementById('boton');
+boton.addEventListener('click', cambiarTexto);
+```
+
+---
+
+## Asociando Funciones a Elementos HTML
+
+### Opción 1: Atributo `onclick` (Inline) ❌
+
+```html
+<button onclick="saludar()">Saludar</button>
+
+<script>
+function saludar() {
+    alert('¡Hola!');
+}
+</script>
+```
+
+**Ventajas**: Simple y directo  
+**Desventajas**: Mezcla HTML con JavaScript (no es una buena práctica)
+
+### Opción 2: `addEventListener` (Recomendado) ✅
+
+```html
+<button id="miBoton">Saludar</button>
+
+<script>
+// 1. Obtener referencia al elemento
+const boton = document.getElementById('miBoton');
+
+// 2. Asociar función al evento
+boton.addEventListener('click', function() {
+    alert('¡Hola!');
+});
+</script>
+```
+
+**Ventajas**: Separa HTML de JavaScript, más flexible  
+**Desventajas**: Un poco más de código
+
+### Opción 3: `addEventListener` con Función Externa
+
+```html
+<button id="miBoton">Saludar</button>
+
+<script>
+function saludar() {
+    alert('¡Hola!');
+}
+
+const boton = document.getElementById('miBoton');
+boton.addEventListener('click', saludar);  // ⚠️ Sin paréntesis
+</script>
+```
+
+**⚠️ Importante**: Cuando pasas una función a `addEventListener`, **NO** uses paréntesis:
+
+```javascript
+// ❌ Incorrecto: se ejecuta inmediatamente
+boton.addEventListener('click', saludar());
+
+// ✅ Correcto: se ejecuta cuando haces click
+boton.addEventListener('click', saludar);
+```
+
+---
+
+## Manipulando el DOM con JavaScript
+
+### Seleccionar Elementos HTML
+
+```javascript
+// Por ID (único)
+const titulo = document.getElementById('titulo');
+
+// Por clase (puede haber varios)
+const items = document.getElementsByClassName('item');
+
+// Por etiqueta
+const parrafos = document.getElementsByTagName('p');
+
+// Query selector (CSS selector) - Moderno ✅
+const boton = document.querySelector('#miBoton');
+const todosLosItems = document.querySelectorAll('.item');
+```
+
+### Modificar Contenido
+
+```javascript
+// Cambiar texto
+elemento.textContent = 'Nuevo texto';
+
+// Cambiar HTML interno
+elemento.innerHTML = '<strong>Texto en negrita</strong>';
+
+// Cambiar atributos
+elemento.src = 'nueva-imagen.jpg';
+elemento.href = 'https://ejemplo.com';
+```
+
+### Modificar Estilos CSS
+
+```javascript
+// Cambiar estilos individuales
+elemento.style.color = 'red';
+elemento.style.fontSize = '24px';
+elemento.style.backgroundColor = 'yellow';
+
+// Añadir/remover clases CSS (mejor práctica) ✅
+elemento.classList.add('activo');
+elemento.classList.remove('inactivo');
+elemento.classList.toggle('visible');
+```
+
+### Crear y Añadir Elementos
+
+```javascript
+// Crear nuevo elemento
+const nuevoParrafo = document.createElement('p');
+nuevoParrafo.textContent = 'Soy un párrafo nuevo';
+
+// Añadir al DOM
+document.body.appendChild(nuevoParrafo);
+```
+
+---
+
+## Eventos Comunes en JavaScript
+
+### Eventos del Mouse
+
+```javascript
+elemento.addEventListener('click', function() {
+    console.log('Click!');
+});
+
+elemento.addEventListener('dblclick', function() {
+    console.log('Doble click!');
+});
+
+elemento.addEventListener('mouseenter', function() {
+    console.log('Mouse entró');
+});
+
+elemento.addEventListener('mouseleave', function() {
+    console.log('Mouse salió');
+});
+```
+
+### Eventos del Teclado
+
+```javascript
+input.addEventListener('keydown', function(event) {
+    console.log('Tecla presionada:', event.key);
+});
+
+input.addEventListener('keyup', function(event) {
+    console.log('Tecla liberada:', event.key);
+});
+```
+
+### Eventos de Formularios
+
+```javascript
+formulario.addEventListener('submit', function(event) {
+    event.preventDefault();  // Prevenir envío por defecto
+    console.log('Formulario enviado');
+});
+
+input.addEventListener('input', function(event) {
+    console.log('Valor actual:', event.target.value);
+});
+
+input.addEventListener('change', function(event) {
+    console.log('Valor cambiado:', event.target.value);
+});
+```
+
+---
+
+## Ejemplo Completo: Lista de Tareas
+
+**index.html**
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Tareas</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Mi Lista de Tareas</h1>
+        
+        <input type="text" id="tareaInput" placeholder="Nueva tarea...">
+        <button id="agregarBtn">Agregar</button>
+        
+        <ul id="listaTareas"></ul>
+    </div>
+</body>
+</html>
+```
+
+**styles.css**
+```css
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #f5f5f5;
+    border-radius: 10px;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+input {
+    width: 70%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px 20px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #45a049;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    padding: 10px;
+    margin: 10px 0;
+    background: white;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.completada {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+```
+
+**app.js**
+```javascript
+// 1. Obtener referencias a elementos del DOM
+const tareaInput = document.getElementById('tareaInput');
+const agregarBtn = document.getElementById('agregarBtn');
+const listaTareas = document.getElementById('listaTareas');
+
+// 2. Función para agregar tarea
+function agregarTarea() {
+    const textoTarea = tareaInput.value.trim();
+    
+    // Validar que no esté vacío
+    if (textoTarea === '') {
+        alert('Por favor escribe una tarea');
+        return;
+    }
+    
+    // Crear elementos
+    const li = document.createElement('li');
+    const span = document.createElement('span');
+    const btnEliminar = document.createElement('button');
+    
+    span.textContent = textoTarea;
+    btnEliminar.textContent = 'Eliminar';
+    btnEliminar.style.background = '#f44336';
+    
+    // Marcar como completada al hacer click
+    span.addEventListener('click', function() {
+        li.classList.toggle('completada');
+    });
+    
+    // Eliminar tarea
+    btnEliminar.addEventListener('click', function() {
+        li.remove();
+    });
+    
+    // Añadir al DOM
+    li.appendChild(span);
+    li.appendChild(btnEliminar);
+    listaTareas.appendChild(li);
+    
+    // Limpiar input
+    tareaInput.value = '';
+    tareaInput.focus();
+}
+
+// 3. Asociar eventos
+agregarBtn.addEventListener('click', agregarTarea);
+
+// Permitir agregar con Enter
+tareaInput.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        agregarTarea();
+    }
+});
+```
+
+---
+
+## Orden de Ejecución: Resumen Visual
+
+```
+┌─────────────────────────────────────────┐
+│ 1. Usuario escribe URL en navegador    │
+└──────────────────┬──────────────────────┘
+                  ↓
+┌─────────────────────────────────────────┐
+│ 2. Navegador solicita HTML al servidor │
+└──────────────────┬──────────────────────┘
+                  ↓
+┌─────────────────────────────────────────┐
+│ 3. Servidor envía index.html            │
+└──────────────────┬──────────────────────┘
+                  ↓
+┌─────────────────────────────────────────┐
+│ 4. Navegador lee HTML línea por línea   │
+│    - Construye el DOM                   │
+└──────────────────┬──────────────────────┘
+                  ↓
+┌─────────────────────────────────────────┐
+│ 5. Encuentra <link> CSS                 │
+│    - Solicita styles.css (paralelo)     │
+│    - Aplica estilos al DOM              │
+└──────────────────┬──────────────────────┘
+                  ↓
+┌─────────────────────────────────────────┐
+│ 6. Encuentra <script>                   │
+│    • Sin atributos: bloquea y ejecuta   │
+│    • defer: descarga en paralelo,       │
+│      ejecuta después del DOM            │
+│    • async: descarga y ejecuta ASAP     │
+│    • type="module": como defer + ES6    │
+└──────────────────┬──────────────────────┘
+                  ↓
+┌─────────────────────────────────────────┐
+│ 7. JavaScript manipula DOM y CSS        │
+│    - Añade interactividad               │
+└──────────────────┬──────────────────────┘
+                  ↓
+┌─────────────────────────────────────────┐
+│ 8. Página completamente cargada         │
+│    - Usuario puede interactuar          │
+└─────────────────────────────────────────┘
+```
+
+---
+
+## Buenas Prácticas
+
+### 1. **Usa `defer` o `type="module"` en el head**
+
+```html
+<!-- ✅ MODERNO Y RECOMENDADO -->
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="app.js" defer></script>
+    <!-- o -->
+    <script type="module" src="app.js"></script>
+</head>
+<body>
+    <button id="btn">Click</button>
+</body>
+</html>
+```
+
+```html
+<!-- ✅ TAMBIÉN FUNCIONA (tradicional) -->
+<body>
+    <button id="btn">Click</button>
+    <script src="app.js"></script>
+</body>
+```
+
+### 2. **Usa `addEventListener` en lugar de `onclick`**
+
+```html
+<!-- ❌ Evita esto -->
+<button onclick="miFunction()">Click</button>
+
+<!-- ✅ Mejor -->
+<button id="miBtn">Click</button>
+<script defer>
+    document.getElementById('miBtn').addEventListener('click', miFunction);
+</script>
+```
+
+### 3. **Separa HTML, CSS y JavaScript**
+
+```
+📁 mi-proyecto/
+  ├── index.html      (Estructura)
+  ├── styles.css      (Presentación)
+  └── app.js          (Comportamiento)
+```
+
+### 4. **Usa IDs y Clases Semánticas**
+
+```html
+<!-- ✅ BIEN -->
+<button id="btnAgregar" class="btn-primary">Agregar</button>
+
+<!-- ❌ MAL -->
+<button id="btn1" class="azul">Agregar</button>
+```
+
+### 5. **Valida Siempre que el Elemento Existe**
+
+```javascript
+const boton = document.getElementById('miBoton');
+
+if (boton) {
+    boton.addEventListener('click', function() {
+        console.log('Click!');
+    });
+} else {
+    console.error('Elemento no encontrado');
+}
+```
+
+---
+
+## Conclusión
+
+Ahora entiendes cómo **HTML**, **CSS** y **JavaScript** trabajan juntos:
+
+1. **HTML** crea la estructura (qué hay en la página)
+2. **CSS** define la apariencia (cómo se ve)
+3. **JavaScript** añade comportamiento (qué hace)
+
+El navegador los procesa en orden, construye el DOM, aplica estilos y ejecuta scripts. Con las técnicas modernas como `defer` o `type="module"`, puedes colocar tus scripts en el `<head>` y el navegador se encargará de ejecutarlos en el momento correcto.
+
+**Puntos clave**:
+- ✅ Usa `defer` para scripts normales
+- ✅ Usa `type="module"` para código moderno con import/export
+- ✅ Usa `async` solo para scripts independientes
+- ✅ Usa `addEventListener` en lugar de atributos inline
+- ✅ Manipula el DOM solo después de que esté listo

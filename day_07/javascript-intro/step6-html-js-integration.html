@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paso 6: Integración HTML + JavaScript</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .demo-box {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .demo-box h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .demo-box p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: #48c774;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #3ead5f;
+        }
+
+        .btn-danger {
+            background: #f14668;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #d63250;
+        }
+
+        .output-box {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            min-height: 60px;
+            margin-top: 15px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .input-demo {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .counter-display {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .counter-display h3 {
+            color: #667eea;
+            font-size: 48px;
+            margin: 10px 0;
+        }
+
+        .event-log {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 15px;
+        }
+
+        .event-log-item {
+            padding: 8px;
+            margin: 5px 0;
+            background: white;
+            border-left: 3px solid #667eea;
+            border-radius: 3px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .info-box strong {
+            color: #1976D2;
+        }
+
+        .code-example {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+
+        .color-picker-demo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .color-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            border: 3px solid #ddd;
+        }
+    </style>
+
+    <!-- Script con defer - se ejecutará después de que el DOM esté listo -->
+    <script defer>
+        console.log('🚀 Script con defer cargado');
+        
+        // Este código se ejecuta después de que el DOM esté completamente construido
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('✅ DOM completamente cargado y listo');
+            
+            // Inicializar demos
+            initDemo1();
+            initDemo2();
+            initDemo3();
+            initDemo4();
+            initDemo5();
+        });
+
+        // ===========================================
+        // DEMO 1: Manipulación del DOM
+        // ===========================================
+        function initDemo1() {
+            const changeTextBtn = document.getElementById('changeTextBtn');
+            const changeColorBtn = document.getElementById('changeColorBtn');
+            const resetBtn = document.getElementById('resetBtn');
+            const demoText = document.getElementById('demoText');
+
+            changeTextBtn.addEventListener('click', function() {
+                demoText.textContent = '¡Texto cambiado con JavaScript! 🎉';
+                logEvent('Se cambió el texto del elemento');
+            });
+
+            changeColorBtn.addEventListener('click', function() {
+                const colors = ['#667eea', '#48c774', '#f14668', '#ff9800', '#9c27b0'];
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                demoText.style.color = randomColor;
+                logEvent(`Se cambió el color a ${randomColor}`);
+            });
+
+            resetBtn.addEventListener('click', function() {
+                demoText.textContent = 'Haz clic en los botones para modificarme';
+                demoText.style.color = '#333';
+                logEvent('Se reseteo el elemento a su estado original');
+            });
+        }
+
+        // ===========================================
+        // DEMO 2: Eventos de Input
+        // ===========================================
+        function initDemo2() {
+            const nameInput = document.getElementById('nameInput');
+            const greetBtn = document.getElementById('greetBtn');
+            const greetOutput = document.getElementById('greetOutput');
+
+            // Evento input: se dispara mientras escribes
+            nameInput.addEventListener('input', function(event) {
+                console.log('Escribiendo:', event.target.value);
+            });
+
+            // Evento click del botón
+            greetBtn.addEventListener('click', function() {
+                const name = nameInput.value.trim();
+                if (name === '') {
+                    greetOutput.textContent = '⚠️ Por favor escribe tu nombre';
+                } else {
+                    greetOutput.textContent = `¡Hola, ${name}! 👋 Bienvenido a la demo de JavaScript.`;
+                    logEvent(`Saludo a: ${name}`);
+                }
+            });
+
+            // Evento Enter en el input
+            nameInput.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    greetBtn.click();
+                }
+            });
+        }
+
+        // ===========================================
+        // DEMO 3: Contador con Estado
+        // ===========================================
+        function initDemo3() {
+            let counter = 0;
+            const counterDisplay = document.getElementById('counterDisplay');
+            const incrementBtn = document.getElementById('incrementBtn');
+            const decrementBtn = document.getElementById('decrementBtn');
+            const resetCounterBtn = document.getElementById('resetCounterBtn');
+
+            function updateDisplay() {
+                counterDisplay.textContent = counter;
+                logEvent(`Contador: ${counter}`);
+            }
+
+            incrementBtn.addEventListener('click', function() {
+                counter++;
+                updateDisplay();
+            });
+
+            decrementBtn.addEventListener('click', function() {
+                counter--;
+                updateDisplay();
+            });
+
+            resetCounterBtn.addEventListener('click', function() {
+                counter = 0;
+                updateDisplay();
+            });
+        }
+
+        // ===========================================
+        // DEMO 4: Creación Dinámica de Elementos
+        // ===========================================
+        function initDemo4() {
+            const itemInput = document.getElementById('itemInput');
+            const addItemBtn = document.getElementById('addItemBtn');
+            const itemList = document.getElementById('itemList');
+
+            function addItem() {
+                const itemText = itemInput.value.trim();
+                
+                if (itemText === '') {
+                    alert('Por favor escribe un ítem');
+                    return;
+                }
+
+                // Crear elementos dinámicamente
+                const li = document.createElement('li');
+                li.style.cssText = 'padding: 10px; margin: 5px 0; background: #f0f0f0; border-radius: 5px; display: flex; justify-content: space-between; align-items: center;';
+                
+                const span = document.createElement('span');
+                span.textContent = itemText;
+                
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = '❌ Eliminar';
+                deleteBtn.className = 'btn-danger';
+                deleteBtn.style.padding = '5px 10px';
+                deleteBtn.style.fontSize = '14px';
+                
+                // Evento para eliminar
+                deleteBtn.addEventListener('click', function() {
+                    li.remove();
+                    logEvent(`Ítem eliminado: ${itemText}`);
+                });
+
+                // Evento para marcar como completado
+                span.addEventListener('click', function() {
+                    span.style.textDecoration = span.style.textDecoration === 'line-through' ? 'none' : 'line-through';
+                    span.style.opacity = span.style.opacity === '0.5' ? '1' : '0.5';
+                });
+
+                li.appendChild(span);
+                li.appendChild(deleteBtn);
+                itemList.appendChild(li);
+
+                itemInput.value = '';
+                itemInput.focus();
+                
+                logEvent(`Ítem agregado: ${itemText}`);
+            }
+
+            addItemBtn.addEventListener('click', addItem);
+
+            itemInput.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    addItem();
+                }
+            });
+        }
+
+        // ===========================================
+        // DEMO 5: Cambio de Estilos CSS
+        // ===========================================
+        function initDemo5() {
+            const colorPicker = document.getElementById('colorPicker');
+            const colorPreview = document.getElementById('colorPreview');
+            const applyToBodyBtn = document.getElementById('applyToBodyBtn');
+
+            colorPicker.addEventListener('input', function(event) {
+                colorPreview.style.backgroundColor = event.target.value;
+            });
+
+            applyToBodyBtn.addEventListener('click', function() {
+                document.body.style.background = colorPicker.value;
+                logEvent(`Color de fondo cambiado a: ${colorPicker.value}`);
+                
+                setTimeout(() => {
+                    document.body.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                    logEvent('Color de fondo restaurado al gradiente original');
+                }, 2000);
+            });
+        }
+
+        // ===========================================
+        // Sistema de Log de Eventos
+        // ===========================================
+        function logEvent(message) {
+            const eventLog = document.getElementById('eventLog');
+            const logItem = document.createElement('div');
+            logItem.className = 'event-log-item';
+            
+            const timestamp = new Date().toLocaleTimeString();
+            logItem.innerHTML = `<strong>[${timestamp}]</strong> ${message}`;
+            
+            eventLog.insertBefore(logItem, eventLog.firstChild);
+            
+            // Limitar a 10 eventos
+            if (eventLog.children.length > 10) {
+                eventLog.removeChild(eventLog.lastChild);
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Volver al índice</a>
+        
+        <h1>🔗 Integración HTML + JavaScript</h1>
+        <p class="subtitle">Aprende cómo JavaScript interactúa con HTML y el DOM</p>
+
+        <!-- Demo 1: Manipulación del DOM -->
+        <div class="demo-box">
+            <h2>1. Manipulación del DOM</h2>
+            <p>JavaScript puede cambiar el contenido y estilos de elementos HTML en tiempo real.</p>
+            
+            <div class="info-box">
+                <strong>Concepto:</strong> Usamos <code>getElementById()</code> para obtener referencias a elementos y luego modificamos sus propiedades como <code>textContent</code> y <code>style</code>.
+            </div>
+
+            <p id="demoText" style="font-size: 20px; font-weight: bold; color: #333; padding: 20px; background: #f5f5f5; border-radius: 8px; text-align: center;">
+                Haz clic en los botones para modificarme
+            </p>
+
+            <div class="button-group">
+                <button id="changeTextBtn" class="btn-primary">Cambiar Texto</button>
+                <button id="changeColorBtn" class="btn-success">Cambiar Color</button>
+                <button id="resetBtn" class="btn-danger">Resetear</button>
+            </div>
+
+            <div class="code-example">
+// Obtener referencia al elemento<br>
+const elemento = document.getElementById('demoText');<br>
+<br>
+// Cambiar el texto<br>
+elemento.textContent = 'Nuevo texto';<br>
+<br>
+// Cambiar el color<br>
+elemento.style.color = '#667eea';
+            </div>
+        </div>
+
+        <!-- Demo 2: Eventos de Input -->
+        <div class="demo-box">
+            <h2>2. Eventos de Formularios</h2>
+            <p>JavaScript puede responder a lo que el usuario escribe en inputs y formularios.</p>
+            
+            <div class="info-box">
+                <strong>Concepto:</strong> El evento <code>input</code> se dispara mientras escribes, y <code>keypress</code> detecta cuando presionas Enter.
+            </div>
+
+            <div class="input-demo">
+                <input type="text" id="nameInput" placeholder="Escribe tu nombre...">
+                <button id="greetBtn" class="btn-primary">Saludar</button>
+            </div>
+
+            <div class="output-box" id="greetOutput">
+                Escribe tu nombre y presiona Enter o haz clic en "Saludar" →
+            </div>
+
+            <div class="code-example">
+input.addEventListener('input', function(event) {<br>
+&nbsp;&nbsp;console.log(event.target.value);<br>
+});<br>
+<br>
+input.addEventListener('keypress', function(event) {<br>
+&nbsp;&nbsp;if (event.key === 'Enter') {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// Hacer algo<br>
+&nbsp;&nbsp;}<br>
+});
+            </div>
+        </div>
+
+        <!-- Demo 3: Contador -->
+        <div class="demo-box">
+            <h2>3. Estado y Actualizaciones</h2>
+            <p>JavaScript puede mantener estado (variables) y actualizar la interfaz cuando cambian.</p>
+            
+            <div class="info-box">
+                <strong>Concepto:</strong> Usamos una variable <code>let counter = 0</code> para mantener el estado, y una función para actualizar el DOM cuando cambia.
+            </div>
+
+            <div class="counter-display">
+                <p style="margin: 0; color: #666; font-size: 16px;">Contador</p>
+                <h3 id="counterDisplay">0</h3>
+            </div>
+
+            <div class="button-group">
+                <button id="incrementBtn" class="btn-success">➕ Incrementar</button>
+                <button id="decrementBtn" class="btn-danger">➖ Decrementar</button>
+                <button id="resetCounterBtn" class="btn-primary">🔄 Resetear</button>
+            </div>
+
+            <div class="code-example">
+let counter = 0;<br>
+const display = document.getElementById('counterDisplay');<br>
+<br>
+button.addEventListener('click', function() {<br>
+&nbsp;&nbsp;counter++;<br>
+&nbsp;&nbsp;display.textContent = counter;<br>
+});
+            </div>
+        </div>
+
+        <!-- Demo 4: Creación Dinámica -->
+        <div class="demo-box">
+            <h2>4. Creación Dinámica de Elementos</h2>
+            <p>JavaScript puede crear nuevos elementos HTML y añadirlos al DOM dinámicamente.</p>
+            
+            <div class="info-box">
+                <strong>Concepto:</strong> Usamos <code>document.createElement()</code> para crear elementos y <code>appendChild()</code> para añadirlos al DOM.
+            </div>
+
+            <div class="input-demo">
+                <input type="text" id="itemInput" placeholder="Nuevo ítem...">
+                <button id="addItemBtn" class="btn-primary">Agregar</button>
+            </div>
+
+            <ul id="itemList" style="list-style: none; padding: 0;"></ul>
+
+            <div class="code-example">
+const li = document.createElement('li');<br>
+li.textContent = 'Nuevo ítem';<br>
+<br>
+const button = document.createElement('button');<br>
+button.textContent = 'Eliminar';<br>
+<br>
+li.appendChild(button);<br>
+lista.appendChild(li);
+            </div>
+        </div>
+
+        <!-- Demo 5: Estilos CSS -->
+        <div class="demo-box">
+            <h2>5. Modificación de Estilos CSS</h2>
+            <p>JavaScript puede cambiar los estilos CSS de cualquier elemento, incluso el fondo de la página.</p>
+            
+            <div class="info-box">
+                <strong>Concepto:</strong> Usamos <code>element.style.propiedad</code> para cambiar estilos inline, o <code>classList</code> para agregar/quitar clases.
+            </div>
+
+            <div class="color-picker-demo">
+                <input type="color" id="colorPicker" value="#667eea" style="width: 60px; height: 60px; border: none; cursor: pointer;">
+                <div id="colorPreview" class="color-preview" style="background-color: #667eea;"></div>
+                <button id="applyToBodyBtn" class="btn-primary">Aplicar a la Página (2 seg)</button>
+            </div>
+
+            <div class="code-example">
+// Cambiar estilo directo<br>
+element.style.backgroundColor = '#667eea';<br>
+<br>
+// Mejor práctica: usar clases<br>
+element.classList.add('active');<br>
+element.classList.remove('inactive');<br>
+element.classList.toggle('visible');
+            </div>
+        </div>
+
+        <!-- Log de Eventos -->
+        <div class="demo-box">
+            <h2>📊 Log de Eventos</h2>
+            <p>Registro en tiempo real de todas las interacciones que has hecho en esta página:</p>
+            <div id="eventLog" class="event-log">
+                <div class="event-log-item"><strong>Sistema iniciado</strong> - Esperando interacciones...</div>
+            </div>
+        </div>
+
+        <!-- Información Final -->
+        <div class="demo-box">
+            <h2>💡 Puntos Clave</h2>
+            <ul style="color: #555; line-height: 2; padding-left: 20px;">
+                <li><strong>DOM</strong>: Document Object Model - Representación en memoria del HTML</li>
+                <li><strong>querySelector/getElementById</strong>: Obtener referencias a elementos</li>
+                <li><strong>addEventListener</strong>: Asociar funciones a eventos (click, input, etc.)</li>
+                <li><strong>createElement</strong>: Crear nuevos elementos dinámicamente</li>
+                <li><strong>textContent/innerHTML</strong>: Modificar el contenido de elementos</li>
+                <li><strong>style</strong>: Cambiar estilos CSS desde JavaScript</li>
+                <li><strong>classList</strong>: Agregar/remover clases CSS (mejor práctica)</li>
+            </ul>
+        </div>
+
+        <div class="demo-box" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+            <h2 style="color: white;">🚀 Próximo Paso</h2>
+            <p style="color: rgba(255,255,255,0.9);">
+                Ahora que entiendes cómo JavaScript interactúa con HTML, abre la consola del navegador (F12) 
+                y observa todos los mensajes que se registran mientras interactúas con esta página. 
+                ¡Experimenta y aprende!
+            </p>
+        </div>
+    </div>
+</body>
+</html>

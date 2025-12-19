@@ -47,6 +47,14 @@ Proyecto integrador que combina **todos los conceptos aprendidos**:
 - Bucles para renderizado
 - Manipulación del DOM
 
+### Paso 6: Integración HTML + JavaScript
+Cómo HTML, CSS y JavaScript trabajan juntos:
+- Orden de procesamiento del navegador
+- Estrategias de carga: `defer`, `async`, `type="module"`
+- Manipulación del DOM en tiempo real
+- Eventos y asociación de funciones
+- Demos interactivas de todos los conceptos
+
 ## 🚀 Cómo Usar Este Módulo
 
 ### 1. Iniciar el Servidor
