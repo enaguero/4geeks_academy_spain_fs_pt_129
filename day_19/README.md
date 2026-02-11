@@ -4,6 +4,9 @@
 
 Hoy aprenderás a conectar tu aplicación React con APIs reales usando Fetch. Los conceptos clave son:
 
+- **API y JSON**: Qué son y por qué existen
+- **HTTP**: Protocolo de comunicación y métodos (GET, POST, PUT, DELETE)
+- **REST**: Arquitectura para diseñar APIs
 - **Síncrono vs Asíncrono**: Conceptos fundamentales de programación asíncrona
 - **setTimeout**: Primera herramienta asíncrona en JavaScript
 - **Callbacks**: Funciones que se ejecutan después de algo
@@ -15,9 +18,63 @@ Hoy aprenderás a conectar tu aplicación React con APIs reales usando Fetch. Lo
 - **Integración**: Combinar Fetch con useState y useEffect
 - **Proyecto Real**: TodoList que persiste datos en un servidor
 
+---
+
+## 🔗 ¿Cómo se Relaciona Todo?
+
+Este es el panorama completo de lo que aprenderás hoy:
+
+```
+┌─────────────────────────────────────────────┐
+│ 1. API (Application Programming Interface) │
+│    └─> Contrato entre aplicaciones         │
+└─────────────────────────────────────────────┘
+                    ↓
+┌─────────────────────────────────────────────┐
+│ 2. REST (Representational State Transfer)  │
+│    └─> Estilo arquitectónico para APIs     │
+└─────────────────────────────────────────────┘
+                    ↓
+┌─────────────────────────────────────────────┐
+│ 3. HTTP (Protocolo de comunicación)        │
+│    └─> GET, POST, PUT, DELETE              │
+└─────────────────────────────────────────────┘
+                    ↓
+┌─────────────────────────────────────────────┐
+│ 4. JSON (Formato de datos)                 │
+│    └─> Lenguaje común entre cliente/server │
+└─────────────────────────────────────────────┘
+                    ↓
+┌─────────────────────────────────────────────┐
+│ 5. Fetch API (Herramienta JavaScript)      │
+│    └─> Consume todo lo anterior            │
+└─────────────────────────────────────────────┘
+                    ↓
+┌─────────────────────────────────────────────┐
+│ 6. React + Hooks                            │
+│    └─> Integra Fetch en tu UI              │
+└─────────────────────────────────────────────┘
+```
+
+**En resumen:** Usarás **Fetch** (JavaScript) para hacer peticiones **HTTP** (GET/POST/PUT/DELETE) a una **REST API**, intercambiando datos en formato **JSON**.
+
 ## 📚 Estructura del Día
 
-Este día tiene **9 pasos progresivos**, cada uno construyendo sobre el anterior. Es fundamental seguir el orden.
+Este día tiene **10 pasos progresivos**, cada uno construyendo sobre el anterior. Es fundamental seguir el orden.
+
+### Step 0: Conceptos Fundamentales 🌐
+**Archivo**: `step0-conceptos-fundamentales/`
+
+**¡COMIENZA AQUÍ!** Antes de tocar código, entiende qué es una API, JSON, HTTP y REST.
+
+**Conceptos**:
+- Qué es una API
+- Qué es JSON y cómo funciona
+- HTTP: Protocolo y métodos (GET, POST, PUT, DELETE)
+- REST: Arquitectura para APIs
+- Cómo se relaciona todo
+
+---
 
 ### Step 1: Síncrono vs Asíncrono 🔄
 **Archivo**: `step1-sync-async/`
@@ -187,7 +244,7 @@ Crearás un TodoList que:
 
 ### Para Principiantes
 
-1. **Sigue el orden**: Los 9 steps están diseñados para aprendizaje incremental
+1. **Sigue el orden**: Los 10 steps están diseñados para aprendizaje incremental
 2. **Entiende conceptos básicos primero**: Síncrono vs Asíncrono antes de Promises
 3. **Practica con ejemplos**: Copia y ejecuta el código en tu navegador
 4. **Usa el Dev Tools**: Abre la consola y Network para ver las peticiones
@@ -264,6 +321,7 @@ useEffect(() => {
 
 Marca cada paso cuando lo completes:
 
+- [ ] Step 0: Conceptos Fundamentales (API, JSON, HTTP, REST)
 - [ ] Step 1: Síncrono vs Asíncrono
 - [ ] Step 2: setTimeout y setInterval
 - [ ] Step 3: Callbacks y Callback Hell

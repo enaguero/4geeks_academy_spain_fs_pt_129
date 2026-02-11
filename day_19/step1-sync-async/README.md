@@ -105,10 +105,10 @@ Varias tareas pueden estar "en progreso" al mismo tiempo.
 
 En desarrollo web, muchas operaciones **tardan tiempo**:
 
-- 🌐 Peticiones a APIs (fetch)
+- 🌐 Pedir datos a un servidor por internet
 - 📁 Leer archivos del sistema
-- 💾 Consultas a bases de datos
-- ⏱️ Temporizadores (setTimeout)
+- 💾 Consultar bases de datos
+- ⏱️ Esperar un tiempo determinado (timers)
 
 Si usáramos código síncrono, **tu aplicación se congelaría** esperando cada operación.
 
@@ -131,11 +131,10 @@ Durante esos 5 segundos:
 ```javascript
 console.log('Pidiendo datos al servidor...');
 
-// La petición se hace en segundo plano
-fetch('https://api.example.com/datos')
-  .then(datos => {
-    console.log('Datos recibidos:', datos);
-  });
+// Operación asíncrona (veremos cómo funciona en los siguientes steps)
+pedirDatosAlServidor(function(datos) {
+  console.log('Datos recibidos:', datos);
+});
 
 console.log('Mientras tanto, puedo hacer otras cosas');
 
@@ -178,24 +177,24 @@ Todas estas operaciones **se ejecutan al instante**.
 ## Operaciones Asíncronas Comunes
 
 ```javascript
-// setTimeout / setInterval
+// setTimeout (esperar un tiempo)
 setTimeout(() => {
   console.log('Después de 1 segundo');
 }, 1000);
 
-// Fetch (peticiones HTTP)
-fetch('https://api.example.com/datos')
-  .then(response => response.json())
-  .then(data => console.log(data));
+// Pedir datos a un servidor
+pedirDatos('url', (datos) => {
+  console.log(datos); // Se ejecuta cuando lleguen
+});
 
 // Eventos del usuario
 button.addEventListener('click', () => {
   console.log('Clic!'); // Se ejecuta cuando el usuario haga clic
 });
 
-// Leer archivos (Node.js)
-fs.readFile('archivo.txt', (err, data) => {
-  console.log(data); // Se ejecuta cuando termine de leer
+// Leer archivos
+leerArchivo('archivo.txt', (contenido) => {
+  console.log(contenido); // Se ejecuta cuando termine de leer
 });
 ```
 
@@ -240,7 +239,7 @@ cuandoHierva(() => {
 
 1. **Síncrono** = Una cosa después de otra, en orden
 2. **Asíncrono** = Varias cosas pueden estar "en progreso"
-3. **JavaScript es asíncrono** para operaciones lentas (fetch, setTimeout, etc.)
+3. **JavaScript es asíncrono** para operaciones lentas (pedir datos al servidor, setTimeout, etc.)
 4. **No bloquear** = Tu aplicación sigue funcionando mientras espera
 5. **Orden de ejecución** puede ser diferente al orden del código
 

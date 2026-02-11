@@ -1,25 +1,140 @@
 # Step 4: Promises - La Solución al Callback Hell 🤝
 
-## Recordando el Problema: Callback Hell
+## 🔗 Contexto: De Callbacks a Promises
 
-En el **Step 3** vimos cómo los callbacks anidados crean código difícil de leer y mantener (Callback Hell):
+### Recordando los Problemas
+
+En los steps anteriores aprendiste:
+
+**Step 1**: Código **asíncrono** = operaciones que tardan (no bloquean)  
+**Step 2**: **setTimeout** = primera herramienta asíncrona  
+**Step 3**: **Callbacks** = "cuando termines, ejecuta esto"  
+**Step 3**: **Callback Hell** = callbacks anidados = código ilegible  
 
 ```javascript
 // Callback Hell ❌
 obtenerUsuario(1, (error, usuario) => {
+  if (error) return console.log(error);
+  
   obtenerPosts(usuario.id, (error, posts) => {
+    if (error) return console.log(error);
+    
     obtenerComentarios(posts[0].id, (error, comentarios) => {
+      if (error) return console.log(error);
+      
       console.log('Listo!');
     });
   });
 });
 ```
 
-**Promises** solucionan este problema.
+**Problemas**:
+1. ❌ Pirámide de indentación
+2. ❌ Manejo de errores repetitivo
+3. ❌ Difícil de leer/mantener
+
+---
+
+## 🎉 La Solución: Promises
+
+En 2015, JavaScript introdujo **Promises** para solucionar estos problemas.
+
+### ¿Qué Cambia?
+
+**Concepto clave**: En lugar de **pasar** un callback a una función, la función **devuelve** una Promise.
+
+```javascript
+// ANTES (Callbacks):
+funcion(parametros, callback)  // Paso el callback como argumento
+
+// AHORA (Promises):
+funcion(parametros)            // Devuelve una Promise
+  .then(resultado => ...)      // Encadeno qué hacer con el resultado
+```
+
+### El Mismo Ejemplo con Promises
+
+```javascript
+// Con Promises ✅
+obtenerUsuario(1)
+  .then(usuario => obtenerPosts(usuario.id))
+  .then(posts => obtenerComentarios(posts[0].id))
+  .then(comentarios => {
+    console.log('Listo!');
+  })
+  .catch(error => {
+    console.log('Error:', error);  // UN SOLO lugar para errores
+  });
+```
+
+**Ventajas inmediatas**:
+- ✅ Sin pirámide (flujo lineal hacia abajo)
+- ✅ Un solo `.catch()` para todos los errores
+- ✅ Más legible (como leer un libro)
 
 ---
 
 ## ¿Qué es una Promise?
+
+Una **Promise** (promesa) es un objeto de JavaScript que representa el resultado **futuro** de una operación asíncrona.
+
+### Analogía: Pedido en un Restaurante
+
+Cuando pides comida:
+1. **Haces el pedido** → Te dan un ticket (la Promise)
+2. **Esperas** → La comida se está preparando (Promise pendiente)
+3. **Resultado**:
+   - ✅ Te traen tu comida (Promise resuelta/resolved)
+   - ❌ Te dicen "no hay ingredientes" (Promise rechazada/rejected)
+
+### En Código
+
+```javascript
+// Crear una Promise
+const miPromesa = pedirDatosAlServidor();  // Devuelve Promise
+
+// La Promise está en estado "pending" (esperando)
+
+// Después de 2 segundos...
+// - Si todo va bien: Promise "resolved" ✅
+// - Si hay error: Promise "rejected" ❌
+
+// Tú decides qué hacer en cada caso:
+miPromesa
+  .then(datos => console.log('Datos:', datos))      // Si se resuelve
+  .catch(error => console.log('Error:', error));   // Si se rechaza
+```
+
+### Relación con Asíncrono
+
+**Recuerda**: Operaciones asíncronas tardan tiempo (pedir datos a servidor, leer archivo, etc).
+
+**Problema de callbacks**: Tenías que pasar la función callback como argumento.
+
+**Solución de Promises**: La función devuelve un objeto (Promise) que puedes manipular.
+
+```javascript
+// Operación asíncrona con Callback:
+pedirDatos(url, function(error, datos) {
+  // Manejarlo aquí adentro
+});
+
+// Operación asíncrona con Promise:
+const promesa = pedirDatos(url);  // Devuelve Promise
+
+// Puedes manipular la promesa:
+promesa.then(...);     // Encadenar
+promesa.catch(...);    // Manejar errores
+
+// O guardarla para después:
+const p1 = pedirDatos(url1);
+const p2 = pedirDatos(url2);
+Promise.all([p1, p2]).then(...)  // Esperar ambas
+```
+
+---
+
+## ¿Qué ES una Promise? (Técnico)
 
 Una **Promise** es un objeto de JavaScript que representa un valor que puede no estar disponible ahora, pero lo estará en el futuro.
 

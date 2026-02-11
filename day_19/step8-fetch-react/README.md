@@ -1,5 +1,81 @@
 # Step 8: Fetch con React 🚀
 
+## 🔗 Todo Junto: React + Fetch + REST + JSON
+
+Ahora vas a integrar todo lo aprendido en componentes React:
+
+```javascript
+// React (UI) + useEffect (ciclo de vida) + Fetch (petición) + 
+// HTTP (método) + REST API (servidor) + JSON (datos)
+
+import { useState, useEffect } from 'react';
+
+function Usuarios() {
+  const [usuarios, setUsuarios] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function cargarUsuarios() {
+      try {
+        // 1. Fetch hace petición HTTP GET a una REST API
+        const response = await fetch('https://api.ejemplo.com/usuarios');
+        
+        // 2. Verificar respuesta
+        if (!response.ok) {
+          throw new Error(`HTTP Error: ${response.status}`);
+        }
+        
+        // 3. Parse JSON a objeto JavaScript
+        const data = await response.json();
+        
+        // 4. Actualizar estado de React
+        setUsuarios(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    cargarUsuarios();
+  }, []);
+
+  if (loading) return <p>Cargando usuarios...</p>;
+  if (error) return <p>Error: {error}</p>;
+
+  return (
+    <ul>
+      {usuarios.map(user => (
+        <li key={user.id}>{user.nombre}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+### ¿Qué Está Pasando?
+
+1. **React** monta el componente
+2. **useEffect** se ejecuta (una vez, por el array vacío `[]`)
+3. **Fetch** hace petición **HTTP GET** a la **REST API**
+4. **Servidor** procesa y devuelve **JSON**
+5. **response.json()** parsea el JSON a objeto JavaScript
+6. **setState** actualiza el estado de React
+7. **React** re-renderiza mostrando los usuarios
+
+### Cada Pieza Tiene un Rol:
+
+- **React**: Renderiza la UI
+- **useState**: Guarda los datos (usuarios, loading, error)
+- **useEffect**: Ejecuta código cuando el componente carga
+- **Fetch**: Hace la petición HTTP
+- **REST API**: Devuelve los datos
+- **JSON**: Formato de los datos
+- **async/await**: Maneja la asincronía
+
+---
+
 ## Integrar Fetch en Componentes
 
 El patrón correcto es usar `useEffect` para hacer peticiones:

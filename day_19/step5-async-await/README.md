@@ -1,6 +1,125 @@
 # Step 5: Async/Await ⏳
 
-## ¿Qué es Async/Await?
+## 🔗 Contexto: ¿Por qué Async/Await si Ya Tenemos Promises?
+
+### La Evolución del Código Asíncrono
+
+Has visto la evolución:
+
+**Step 3**: Callbacks → Callback Hell (pirámide de indentación)  
+**Step 4**: Promises → Solucionan el Callback Hell (flujo lineal con `.then()`)  
+**Step 5**: Async/Await → ¿Por qué necesitamos **otra** mejora?  
+
+### El Problema con Promises
+
+Promises son **mucho mejores** que callbacks, pero aún tienen problemas:
+
+```javascript
+// Con Promises - todavía se siente "diferente"
+function procesarDatos() {
+  return obtenerUsuario(1)
+    .then(usuario => {
+      console.log('Usuario:', usuario.name);
+      return obtenerPosts(usuario.id);
+    })
+    .then(posts => {
+      console.log('Posts:', posts.length);
+      return obtenerComentarios(posts[0].id);
+    })
+    .then(comentarios => {
+      console.log('Comentarios:', comentarios.length);
+      return comentarios;
+    })
+    .catch(error => {
+      console.log('Error:', error);
+    });
+}
+```
+
+**Problemas**:
+1. ❌ Aún se ve "asíncrono" - muchos `.then()`
+2. ❌ Difícil de debuggear (puntos de breakpoint raros)
+3. ❌ No se parece a código "normal"
+4. ❌ Variables compartidas entre `.then()` son complicadas
+
+### La Pregunta
+
+¿Y si pudiéramos escribir código asíncrono que se **vea** como código síncrono?
+
+```javascript
+// Imaginemos código SINCRONO (si fuera posible):
+const usuario = obtenerUsuario(1);           // Espera
+const posts = obtenerPosts(usuario.id);      // Espera
+const comentarios = obtenerComentarios(posts[0].id);  // Espera
+console.log('Todo listo');
+```
+
+**Este código es imposible** - bloquearía el navegador mientras espera.
+
+Pero... ¿y si pudiéramos **simular** esta sintaxis sin bloquear?
+
+---
+
+## 🎉 La Solución: Async/Await (ES2017)
+
+En 2017, JavaScript introdujo **Async/Await**: una forma de escribir código asíncrono que **se ve** como código síncrono.
+
+### ¿Qué es Async/Await?
+
+**Async/Await** es "azúcar sintáctico" (syntactic sugar) sobre Promises. No reemplaza Promises, las hace **más fáciles de usar**.
+
+```javascript
+// ANTES (Promises con .then())
+function procesarDatos() {
+  return obtenerUsuario(1)
+    .then(usuario => obtenerPosts(usuario.id))
+    .then(posts => obtenerComentarios(posts[0].id))
+    .catch(error => console.log(error));
+}
+
+// AHORA (Async/Await)
+async function procesarDatos() {
+  try {
+    const usuario = await obtenerUsuario(1);
+    const posts = await obtenerPosts(usuario.id);
+    const comentarios = await obtenerComentarios(posts[0].id);
+    return comentarios;
+  } catch (error) {
+    console.log(error);
+  }
+}
+```
+
+### ¿Ves la Diferencia?
+
+**Con Async/Await**:
+- ✅ Se lee **de arriba hacia abajo** como código normal
+- ✅ Parece código **síncrono** (pero sigue siendo asíncrono)
+- ✅ Variables fáciles de usar (const usuario, const posts)
+- ✅ try/catch funciona como en código normal
+- ✅ Más fácil de debuggear
+
+### Concepto Clave
+
+**Async/Await NO es una nueva tecnología** - es una forma más bonita de escribir Promises.
+
+```javascript
+// Estos dos son EXACTAMENTE lo mismo:
+
+// Opción 1: Promises
+fetch(url).then(r => r.json()).then(data => console.log(data));
+
+// Opción 2: Async/Await
+const res = await fetch(url);
+const data = await res.json();
+console.log(data);
+```
+
+**Por debajo, Async/Await usa Promises.** Es solo una sintaxis más cómoda.
+
+---
+
+## ¿Qué es Async/Await? (Detalles Técnicos)
 
 **Async/Await** es una forma más limpia y legible de trabajar con Promises. En lugar de `.then()` y `.catch()`, usas sintaxis que se parece a código sincrónico.
 

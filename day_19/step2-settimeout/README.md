@@ -1,5 +1,81 @@
 # Step 2: setTimeout - Tu Primera Herramienta Asíncrona ⏱️
 
+## 🔗 ¿Por qué Estudiamos setTimeout?
+
+Ahora que entiendes la diferencia entre código síncrono y asíncrono (Step 1), necesitas ver cómo funciona en la práctica.
+
+**setTimeout** es la herramienta asíncrona **más simple** de JavaScript. Aprenderla es crucial porque:
+
+1. 🎯 **Es la base**: Todo código asíncrono funciona con los mismos principios
+2. 🎯 **Simula operaciones reales**: Muchas cosas en programación "tardan" (leer archivos, pedir datos a un servidor, esperar una respuesta)
+3. 🎯 **Entender el Event Loop**: Ver cómo JavaScript maneja tareas que "tardan"
+
+### ¿Por qué es importante?
+
+En el mundo real, muchas operaciones **no son instantáneas**:
+
+```javascript
+// Operaciones que "tardan":
+- Leer un archivo del disco duro
+- Pedir datos a un servidor en internet
+- Esperar que el usuario haga clic en un botón
+- Procesar una imagen o video
+- Consultar una base de datos
+```
+
+**setTimeout nos permite simular estas esperas** para aprender cómo manejarlas:
+
+```javascript
+// Simular que pedimos datos a un servidor
+function obtenerDatosDelServidor() {
+  console.log('Pidiendo datos al servidor...');
+  
+  setTimeout(() => {
+    // Simula que el servidor tardó 2 segundos en responder
+    console.log('✅ Datos recibidos del servidor');
+  }, 2000);
+}
+
+obtenerDatosDelServidor();
+console.log('Mientras tanto, sigo ejecutando otro código...');
+
+// Salida:
+// Pidiendo datos al servidor...
+// Mientras tanto, sigo ejecutando otro código...
+// (espera 2 segundos)
+// ✅ Datos recibidos del servidor
+```
+
+**Concepto clave**: El código **no se bloquea** esperando. Continúa ejecutándose y cuando la operación termina, ejecuta el callback.
+
+### ¿Qué es el Event Loop?
+
+El **Event Loop** (Bucle de Eventos) es el mecanismo que permite a JavaScript ejecutar código asíncrono sin bloquearse.
+
+**Analogía simple**: Imagina un restaurante:
+- **Cocinero (Call Stack)**: Prepara un plato a la vez
+- **Meseros (Web APIs)**: Toman pedidos que tardan (timers, peticiones al servidor)
+- **Bandeja de pedidos listos (Task Queue)**: Pedidos que esperan ser servidos
+- **Manager (Event Loop)**: Cuando el cocinero termina, toma el siguiente pedido de la bandeja
+
+```
+Tu código (cliente) hace un pedido (setTimeout)
+    ↓
+Mesero lo toma y espera (Web API maneja el timer)
+    ↓
+Cuando está listo, lo pone en la bandeja (Task Queue)
+    ↓
+Manager ve que el cocinero está libre (Call Stack vacío)
+    ↓
+Le da el pedido al cocinero (ejecuta el callback)
+```
+
+**Por eso setTimeout(fn, 0) no se ejecuta inmediatamente** - tiene que esperar a que el cocinero (Call Stack) esté libre.
+
+Veremos esto en detalle más adelante en este step.
+
+---
+
 ## ¿Qué es setTimeout?
 
 **setTimeout** es una función que ejecuta código **después** de un tiempo determinado. Es tu primera herramienta asíncrona.
@@ -172,7 +248,7 @@ console.log('B');    // ← Luego esto
 ```
 
 ### 2. Web APIs
-Donde van las operaciones asíncronas (setTimeout, fetch, etc).
+Donde van las operaciones asíncronas (setTimeout, peticiones al servidor, etc).
 
 ```javascript
 setTimeout(() => {

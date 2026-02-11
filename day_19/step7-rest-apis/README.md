@@ -1,5 +1,47 @@
 # Step 7: REST APIs 🏭
 
+## 🔗 Recapitulación: Lo Que Ya Sabes
+
+Has aprendido:
+1. ✅ **Step 0**: Conceptos de API, JSON, HTTP y REST
+2. ✅ **Steps 1-5**: Promises y Async/Await - Manejar operaciones asíncronas
+3. ✅ **Step 6**: Fetch - Hacer peticiones HTTP y trabajar con JSON
+
+Ahora profundizaremos en:
+- 🎯 **REST**: La arquitectura que une todo
+- 🎯 **CRUD**: Las 4 operaciones fundamentales
+- 🎯 **Diseño de APIs**: Cómo estructurar endpoints
+
+---
+
+## 🎯 Ahora: REST - La Arquitectura que Une Todo
+
+**REST** no es una tecnología, es un **conjunto de reglas** para diseñar APIs que usan HTTP y JSON.
+
+### La Relación Completa:
+
+```
+REST API (arquitectura)
+    ├─> Usa HTTP (protocolo)
+    │       ├─> GET /usuarios
+    │       ├─> POST /usuarios
+    │       ├─> PUT /usuarios/1
+    │       └─> DELETE /usuarios/1
+    │
+    ├─> Intercambia JSON (formato)
+    │       {
+    │         "id": 1,
+    │         "nombre": "Juan"
+    │       }
+    │
+    └─> Se consume con Fetch (herramienta)
+            fetch('/usuarios')
+```
+
+**En otras palabras:** REST es el "estilo" de diseño, HTTP es el "protocolo", JSON es el "idioma", y Fetch es tu "herramienta".
+
+---
+
 ## ¿Qué es REST?
 
 **REST** (Representational State Transfer) es un estilo arquitectónico para diseñar APIs. Define convenciones para comunicación entre cliente y servidor.
