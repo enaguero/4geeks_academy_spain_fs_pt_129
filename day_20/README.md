@@ -1,23 +1,40 @@
-# 🧭 Día 20: React Router - Navegación en Aplicaciones React
+# 🧭 Día 20: React Router + Gestión de Estado Global
 
 ## 🎯 Objetivos de Aprendizaje
 
-Hoy aprenderás a crear **aplicaciones de múltiples páginas** en React usando React Router. Los conceptos clave son:
+Hoy aprenderás a crear **aplicaciones React completas y profesionales** con navegación y gestión de estado global. Los conceptos clave son:
 
+### Parte 1: Navegación (React Router)
 - **SPA (Single Page Application)**: Entender qué es y cómo funciona
 - **React Router**: La librería estándar para navegación en React
 - **Rutas**: Definir diferentes "páginas" en tu aplicación
-- **Navegación**: Moverse entre páginas sin recargar el navegador
 - **Parámetros dinámicos**: URLs con variables (ej: `/user/123`)
-- **Navegación programática**: Redireccionar desde código JavaScript
-- **Proyecto Real**: Blog o Portfolio con múltiples páginas
+
+### Parte 2: Estado Complejo (useReducer)
+- **useReducer Hook**: Alternativa a useState para estado complejo
+- **Reducers y Actions**: Patrón predecible para manejar estado
+- **Cuándo usar useReducer**: vs useState
+
+### Parte 3: Estado Global (Context API)
+- **Context API**: Compartir estado entre componentes sin prop drilling
+- **Provider y Consumer**: Patrón de contexto en React
+- **useContext Hook**: Acceder al contexto fácilmente
+
+### Parte 4: Integración
+- **Store Pattern**: Combinar useReducer + Context para estado global
+- **Router + Context**: Integrar navegación con estado compartido
+- **Proyecto Real**: Contact List App con CRUD completo
 
 ## 📚 Estructura del Día
 
-Este día tiene 6 pasos progresivos, cada uno construyendo sobre el anterior:
+Este día tiene **10 pasos progresivos**, cada uno construyendo sobre el anterior:
+
+---
+
+## 👉 PARTE 1: React Router (Steps 1-4)
 
 ### Step 1: ¿Qué es una SPA? 📖
-**Archivo**: `step1-que-es-spa/`
+**Carpeta**: `step1-que-es-spa/`
 
 Entender el concepto de Single Page Application sin escribir código todavía.
 
@@ -30,7 +47,7 @@ Entender el concepto de Single Page Application sin escribir código todavía.
 ---
 
 ### Step 2: Primera Ruta Básica 🚀
-**Archivo**: `step2-primera-ruta/`
+**Carpeta**: `step2-primera-ruta/`
 
 Crear tu primera aplicación con React Router - lo más simple posible.
 
@@ -43,7 +60,7 @@ Crear tu primera aplicación con React Router - lo más simple posible.
 ---
 
 ### Step 3: Múltiples Rutas y Navegación 🔗
-**Archivo**: `step3-multiples-rutas/`
+**Carpeta**: `step3-multiples-rutas/`
 
 Añadir varias páginas y navegar entre ellas.
 
@@ -56,7 +73,7 @@ Añadir varias páginas y navegar entre ellas.
 ---
 
 ### Step 4: Parámetros en URLs 🔢
-**Archivo**: `step4-parametros-url/`
+**Carpeta**: `step4-parametros-url/`
 
 Crear rutas dinámicas con parámetros variables.
 
@@ -68,49 +85,129 @@ Crear rutas dinámicas con parámetros variables.
 
 ---
 
-### Step 5: Navegación Programática 🎮
-**Archivo**: `step5-navegacion-programatica/`
+## 👉 PARTE 2: useState vs useReducer (Steps 5-6)
 
-Navegar desde código JavaScript (no solo con clicks en links).
+### Step 5: Introducción a useReducer 🧠
+**Carpeta**: `step5-intro-usereducer/`
+
+¿Qué es useReducer? ¿Cuándo usarlo en lugar de useState?
 
 **Conceptos**:
-- Hook useNavigate
-- Redireccionar después de acciones
-- Navegar hacia atrás/adelante
-- Casos de uso: login, formularios, etc.
+- Qué es useReducer
+- Diferencia con useState
+- Cuándo usar cada uno
+- Ejemplo: contador con useReducer
+- Acciones (actions) y reducer function
+- Patrón: `dispatch({ type: 'ACTION', payload: data })`
 
 ---
 
-### Step 6: Proyecto Blog Completo 📝
-**Archivo**: `step6-proyecto-blog/`
+### Step 6: useReducer para Estado Complejo 📦
+**Carpeta**: `step6-usereducer-complejo/`
 
-Aplicación completa con todas las características aprendidas.
+Usar useReducer para manejar estado complejo con múltiples acciones.
 
 **Conceptos**:
-- Estructura profesional
-- Layout compartido
-- Navbar persistente
-- Lista de posts + detalle de post
-- Página 404
-- Proyecto completo funcional
+- Todo list con useReducer
+- Múltiples tipos de acciones (ADD, DELETE, TOGGLE, EDIT)
+- Switch statement en reducer
+- Ventajas sobre múltiples useState
+- Código más predecible y testeable
+
+---
+
+## 👉 PARTE 3: Context API (Step 7)
+
+### Step 7: Context API - Estado Global 🌐
+**Carpeta**: `step7-context-api/`
+
+Resolver el problema del "prop drilling" con Context API.
+
+**Conceptos**:
+- ¿Qué es prop drilling y por qué es un problema?
+- createContext
+- Context.Provider
+- useContext hook
+- Compartir estado entre componentes lejanos
+- Ejemplo: tema dark/light mode global
+
+---
+
+## 👉 PARTE 4: Integración (Steps 8-10)
+
+### Step 8: useReducer + Context = Store 🏪
+**Carpeta**: `step8-usereducer-context-store/`
+
+Combinar useReducer con Context para crear un "store" global (patrón similar a Redux).
+
+**Conceptos**:
+- Combinar useReducer + Context
+- Crear un store global
+- Provider con dispatch disponible globalmente
+- Ejemplo: carrito de compras global
+- Actions centralizadas
+- Estado accesible desde cualquier componente
+
+---
+
+### Step 9: Router + Context Juntos 🔗🌐
+**Carpeta**: `step9-router-context-integracion/`
+
+Integrar navegación (Router) con estado global (Context).
+
+**Conceptos**:
+- Compartir estado entre diferentes páginas/rutas
+- useNavigate con Context
+- Navegación programática desde acciones
+- Ejemplo: app con autenticación simulada
+- Login, logout, rutas protegidas
+
+---
+
+### Step 10: Proyecto Contact List App 📞
+**Carpeta**: `step10-proyecto-contact-list/`
+
+¡TU PROYECTO! Aplicación completa usando TODO lo aprendido.
+
+**⚠️ IMPORTANTE**: Este step NO incluye código resuelto. Solo tiene:
+- Descripción del proyecto
+- Requisitos funcionales
+- Estructura sugerida
+- Referencias a documentación
+- Mockup/wireframe
+
+**Tú debes construirlo** aplicando:
+- ✅ React Router (múltiples páginas)
+- ✅ Context API (estado global)
+- ✅ useReducer (gestión de contactos)
+- ✅ CRUD completo (Create, Read, Update, Delete)
+- ✅ Formularios
+- ✅ Validaciones
+- ✅ Navegación programática
 
 ---
 
 ## 🚀 Cómo Usar Este Material
 
 ### 1. Seguir en orden ESTRICTO
-Este día es **especialmente progresivo**. Cada paso es esencial para entender el siguiente.
+Este día es **MUY progresivo**. Cada paso construye sobre el anterior:
+- Steps 1-4: Aprendes Router
+- Steps 5-6: Aprendes useReducer
+- Step 7: Aprendes Context
+- Steps 8-9: Integras todo
+- Step 10: Proyecto final (tú lo construyes)
 
-### 2. No saltarse el Step 1
-Aunque no tiene código, entender QUÉ es una SPA es crítico.
+### 2. No saltarse conceptos teóricos
+Los steps 1, 5 y 7 son más teóricos pero **esenciales** para entender el resto.
 
-### 3. Experimentar navegando
-Abre las DevTools (F12) y observa qué pasa cuando navegas (Network, Elements).
+### 3. Experimentar y romper cosas
+- Abre las DevTools (F12) mientras navegas
+- Modifica el código de los ejemplos
+- Prueba cosas que crees que no funcionarán
+- Lee los errores en la consola
 
-### 4. Probar rompiendo intencionalmente
-- ¿Qué pasa si escribes mal una ruta?
-- ¿Qué pasa si visitas `/ruta-que-no-existe`?
-- ¿Cómo se ve la URL al navegar?
+### 4. No avanzar si no entiendes
+Si algo no tiene sentido en un step, **para**. Revisa, pregunta, experimenta. No sigas adelante sin entenderlo.
 
 ## 🔗 Antes de Empezar: Requisitos Previos
 
@@ -136,20 +233,28 @@ Si aún no dominas estos conceptos, **revisa los días 15-17 primero**.
 - [React Router in 100 Seconds](https://www.youtube.com/watch?v=Ul3y1LXxzdU)
 - [React Router v6 Tutorial](https://www.youtube.com/watch?v=59IXY5IDrBA)
 
-## 🎓 Proyecto Final
+## 🎯 Proyecto Final: Contact List App
 
-**Portfolio Personal o Blog**
+Crearás una aplicación completa de gestión de contactos con:
 
-Crearás una aplicación profesional con:
+### Funcionalidades Requeridas
+✅ **Lista de contactos** - ver todos los contactos  
+✅ **Añadir contacto** - formulario para crear nuevos contactos  
+✅ **Ver detalle** - página individual de cada contacto  
+✅ **Editar contacto** - modificar información existente  
+✅ **Eliminar contacto** - con confirmación  
+✅ **Navegación** - entre todas las vistas sin recarga  
+✅ **Estado global** - contactos accesibles desde cualquier componente  
+✅ **Validaciones** - formularios con validación  
 
-✅ Página de inicio (Home)  
-✅ Sobre mí / About  
-✅ Lista de proyectos o posts  
-✅ Página de detalle para cada proyecto/post  
-✅ Página de contacto  
-✅ Navbar en todas las páginas  
-✅ Página 404 para rutas inexistentes  
-✅ Navegación fluida sin recarga  
+### Tecnologías que Usarás
+- 🔗 **React Router** - navegación entre vistas
+- 🌐 **Context API** - compartir estado
+- 🧠 **useReducer** - gestionar CRUD operations
+- 📝 **Formularios** - inputs controlados
+- 🎨 **CSS** - diseño profesional
+
+El Step 10 te dará toda la información necesaria, pero **tú debes implementarlo**.
 
 ## 💡 Conceptos Clave a Entender
 
@@ -249,35 +354,41 @@ function App() {
 
 Marca cada paso cuando lo completes:
 
+### Parte 1: React Router
 - [ ] Step 1: ¿Qué es una SPA?
 - [ ] Step 2: Primera Ruta Básica
-- [ ] Step 3: Múltiples Rutas
+- [ ] Step 3: Múltiples Rutas y Navegación
 - [ ] Step 4: Parámetros en URLs
-- [ ] Step 5: Navegación Programática
-- [ ] Step 6: Proyecto Blog Completo
-- [ ] Proyecto Final: Portfolio Personal
+
+### Parte 2: useReducer
+- [ ] Step 5: Introducción a useReducer
+- [ ] Step 6: useReducer para Estado Complejo
+
+### Parte 3: Context API
+- [ ] Step 7: Context API - Estado Global
+
+### Parte 4: Integración
+- [ ] Step 8: useReducer + Context (Store)
+- [ ] Step 9: Router + Context Juntos
+- [ ] Step 10: Proyecto Contact List App (construirlo tú mismo)
 
 ---
 
-## 🎯 ¿Por Qué Es Importante React Router?
+## 🎯 ¿Por Qué Es Importante Este Día?
 
-### Sin React Router
-```
-Tu app: solo una "página" 
-URL: siempre http://localhost:3000/
-Problema: No puedes compartir link a secciones específicas
-Problema: No puedes usar botones atrás/adelante del navegador
-```
+### React Router
+Sin Router tu app React es una sola página. Con Router puedes crear aplicaciones con múltiples vistas, URLs compartibles y navegación profesional.
 
-### Con React Router
-```
-Tu app: múltiples "páginas" virtuales
-URLs: http://localhost:3000/about, /contact, /products/123
-✅ Puedes compartir links
-✅ Botones del navegador funcionan
-✅ Comportamiento como sitio web tradicional
-✅ Pero sin recargas (más rápido)
-```
+### useReducer
+Para estado simple usa `useState`. Pero cuando tu estado se vuelve complejo (muchas acciones, lógica complicada), `useReducer` hace tu código más limpio y mantenible.
+
+### Context API
+Evita "prop drilling" (pasar props por 5 niveles de componentes). Context te permite compartir estado globalmente de forma elegante.
+
+### ¿Por qué combinar useReducer + Context?
+Es el patrón más común en React profesional para estado global. Similar a Redux pero más simple y sin librerías externas.
+
+**Después de este día podrás construir aplicaciones React completas y profesionales.**
 
 ## 💼 Casos de Uso Profesionales
 
