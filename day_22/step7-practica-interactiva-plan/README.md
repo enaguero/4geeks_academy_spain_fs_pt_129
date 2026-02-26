@@ -26,7 +26,7 @@ Si no te da tiempo hoy, completa al menos los primeros 3 bloques.
 
 ---
 
-## ✅ Criterios para pasar al Día 23 (API con Flask)
+## ✅ Criterios para pasar al Día 23 (API con FastAPI)
 
 Antes de avanzar, asegúrate de que puedes:
 
@@ -60,4 +60,4 @@ Haz este protocolo:
 
 ## 🎯 Meta final del día
 
-Terminar con confianza para escribir scripts de Python básicos y entrar al Día 23 con base sólida para crear tu primera API con Flask.
+Terminar con confianza para escribir scripts de Python básicos y entrar al Día 23 con base sólida para crear tu primera API con FastAPI.

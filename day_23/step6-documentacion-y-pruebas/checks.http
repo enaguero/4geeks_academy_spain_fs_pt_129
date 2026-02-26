@@ -1,0 +1,25 @@
+### Listar tareas
+GET http://127.0.0.1:8000/tasks
+
+### Crear tarea valida
+POST http://127.0.0.1:8000/tasks
+Content-Type: application/json
+
+{
+  "title": "Estudiar FastAPI",
+  "priority": 3,
+  "done": false
+}
+
+### Crear tarea invalida (title corto)
+POST http://127.0.0.1:8000/tasks
+Content-Type: application/json
+
+{
+  "title": "Hi",
+  "priority": 3,
+  "done": false
+}
+
+### Buscar tarea inexistente
+GET http://127.0.0.1:8000/tasks/999
