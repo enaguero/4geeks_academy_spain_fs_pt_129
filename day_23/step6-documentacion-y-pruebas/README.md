@@ -6,6 +6,40 @@ Probar tu API de forma sistemática y entender la documentación automática de 
 
 ---
 
+## 🧰 Requisitos para correr este step
+
+- Setup transversal completado en Step 0
+- Entorno virtual activo
+- Tener una API corriendo (recomendado: Step 5 o Step 7)
+
+---
+
+## 📦 Instalación (si aún no instalaste dependencias)
+
+```bash
+source .venv/bin/activate
+pip install -r day_23/requirements.txt
+```
+
+---
+
+## ▶️ Cómo correr este step
+
+1. Levanta una API de referencia (ejemplo con Step 5):
+
+```bash
+uvicorn main:app --reload --app-dir day_23/step5-status-codes-y-errores
+```
+
+2. Abre la documentación:
+
+- `http://127.0.0.1:8000/docs`
+- `http://127.0.0.1:8000/redoc`
+
+3. Usa `day_23/step6-documentacion-y-pruebas/checks.http` como guía de requests.
+
+---
+
 ## 📘 Documentación automática
 
 Cuando levantas FastAPI, obtienes:

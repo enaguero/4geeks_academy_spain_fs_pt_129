@@ -6,6 +6,34 @@ Responder de forma semántica y profesional con códigos HTTP correctos.
 
 ---
 
+## 🧰 Requisitos para correr este step
+
+- Setup transversal completado en Step 0
+- Entorno virtual activo
+- Dependencias instaladas desde `day_23/requirements.txt`
+
+---
+
+## 📦 Instalación (si aún no instalaste dependencias)
+
+```bash
+source .venv/bin/activate
+pip install -r day_23/requirements.txt
+```
+
+---
+
+## ▶️ Cómo correr este step
+
+```bash
+uvicorn main:app --reload --app-dir day_23/step5-status-codes-y-errores
+```
+
+Abre:
+- `http://127.0.0.1:8000/docs`
+
+---
+
 ## 🧠 ¿Por qué importa?
 
 Una API no solo debe "funcionar", también debe comunicar bien.

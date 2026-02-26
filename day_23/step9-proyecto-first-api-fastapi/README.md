@@ -6,6 +6,37 @@ Construir una API completa de tareas aplicando todo lo aprendido en el día.
 
 ---
 
+## 🧰 Requisitos para correr el proyecto
+
+- Setup transversal completado en Step 0
+- Entorno virtual activo
+- Dependencias instaladas desde `day_23/requirements.txt`
+
+---
+
+## 📦 Instalación (si aún no instalaste dependencias)
+
+```bash
+source .venv/bin/activate
+pip install -r day_23/requirements.txt
+```
+
+---
+
+## ▶️ Cómo correr este proyecto
+
+1. Implementa tu proyecto dentro de esta carpeta (siguiendo la estructura sugerida).
+2. Cuando tengas `main.py`, ejecuta:
+
+```bash
+uvicorn main:app --reload --app-dir day_23/step9-proyecto-first-api-fastapi
+```
+
+3. Prueba desde:
+- `http://127.0.0.1:8000/docs`
+
+---
+
 ## ⚠️ Importante
 
 Este step no trae solución final cerrada.

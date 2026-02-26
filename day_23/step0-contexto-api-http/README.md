@@ -1,8 +1,70 @@
-# 🧭 Step 0: Contexto API + HTTP
+# 🧭 Step 0: Ambiente Virtual + Contexto API + HTTP
 
 ## 🎯 Objetivo
 
-Entender qué es una API, para qué sirve y cómo se mueve la información entre cliente y servidor.
+Preparar un entorno virtual reutilizable para todo el Día 23 y entender cómo se comunica un cliente con una API REST.
+
+---
+
+## 🧪 ¿Qué es un ambiente virtual (`venv`)?
+
+Un entorno virtual es una "caja aislada" de dependencias Python para tu proyecto.
+
+Analogía diaria:
+- Es como una cocina separada para una receta.
+- Tus ingredientes de esta receta no se mezclan con otros proyectos.
+
+Beneficios:
+- Evitas conflictos entre versiones de librerías
+- Todos en el equipo usan el mismo setup
+- Puedes borrar y recrear el entorno cuando quieras
+
+---
+
+## ⚙️ Setup transversal (hazlo una sola vez)
+
+Desde la raíz del repositorio:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r day_23/requirements.txt
+```
+
+Verifica instalación:
+
+```bash
+python -m pip show fastapi
+python -m pip show uvicorn
+```
+
+Para salir del entorno virtual:
+
+```bash
+deactivate
+```
+
+> Nota: mientras trabajes en el Día 23, mantén el entorno activo.
+
+---
+
+## ▶️ Cómo ejecutar cualquier ejercicio del Día 23
+
+Patrón general:
+
+```bash
+uvicorn main:app --reload --app-dir day_23/<carpeta-del-step>
+```
+
+Ejemplo real:
+
+```bash
+uvicorn main:app --reload --app-dir day_23/step1-primer-servidor-fastapi
+```
+
+Abre en navegador:
+- `http://127.0.0.1:8000/docs`
+- `http://127.0.0.1:8000/redoc`
 
 ---
 
@@ -48,31 +110,20 @@ Ejemplo mental:
 
 ---
 
-## 🧠 Mini ejercicio rápido
+## ⚠️ Errores comunes al empezar
 
-Clasifica cada acción:
-
-1. Mostrar lista de productos en pantalla
-2. Guardar un nuevo producto
-3. Validar que el precio no sea negativo
-4. Devolver error si no existe el producto
-
-Pista: 1 es frontend, 2-4 son API/backend.
-
----
-
-## ⚠️ Errores comunes al empezar APIs
-
-1. Mezclar conceptos de vista (frontend) con lógica backend
-2. Ignorar códigos HTTP y devolver siempre `200`
-3. No validar entradas desde el cliente
+1. Instalar librerías fuera del entorno virtual
+2. Olvidar activar `.venv` antes de ejecutar `uvicorn`
+3. Mezclar conceptos frontend/backend
+4. Ignorar códigos HTTP y devolver siempre `200`
 
 ---
 
 ## ✅ Resultado esperado de este step
 
-Si lo tienes claro, puedes explicar:
+Si terminaste bien este step, puedes:
 
-- Qué papel cumple una API
-- Cómo viajan los datos con HTTP
-- Por qué status codes y JSON son parte del contrato
+- Explicar qué es y para qué sirve un `venv`
+- Configurar FastAPI una sola vez para todos los ejercicios
+- Ejecutar cualquier step con el patrón `--app-dir`
+- Explicar el flujo básico request/response

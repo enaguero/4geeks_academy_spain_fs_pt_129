@@ -6,6 +6,37 @@ Consolidar routing, validación y diseño HTTP en problemas pequeños y realista
 
 ---
 
+## 🧰 Requisitos para correr los retos
+
+- Setup transversal completado en Step 0
+- Entorno virtual activo
+- Dependencias instaladas desde `day_23/requirements.txt`
+
+---
+
+## 📦 Instalación (si aún no instalaste dependencias)
+
+```bash
+source .venv/bin/activate
+pip install -r day_23/requirements.txt
+```
+
+---
+
+## ▶️ Cómo correr tus soluciones de este step
+
+1. Crea tu `main.py` dentro de esta carpeta (`day_23/step8-mini-retos-fastapi/`).
+2. Ejecuta:
+
+```bash
+uvicorn main:app --reload --app-dir day_23/step8-mini-retos-fastapi
+```
+
+3. Prueba endpoints desde:
+- `http://127.0.0.1:8000/docs`
+
+---
+
 ## ✅ Reto 1: API de Inventario
 
 ### Enunciado

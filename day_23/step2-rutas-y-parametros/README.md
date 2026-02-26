@@ -6,6 +6,34 @@ Aprender a recibir datos desde la URL con `path params` y `query params`.
 
 ---
 
+## 🧰 Requisitos para correr este step
+
+- Setup transversal completado en Step 0
+- Entorno virtual activo
+- Dependencias instaladas desde `day_23/requirements.txt`
+
+---
+
+## 📦 Instalación (si aún no instalaste dependencias)
+
+```bash
+source .venv/bin/activate
+pip install -r day_23/requirements.txt
+```
+
+---
+
+## ▶️ Cómo correr este step
+
+```bash
+uvicorn main:app --reload --app-dir day_23/step2-rutas-y-parametros
+```
+
+Abre:
+- `http://127.0.0.1:8000/docs`
+
+---
+
 ## 🧭 Path params vs Query params
 
 ### Path params

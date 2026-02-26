@@ -6,6 +6,34 @@ Separar responsabilidades para que el código crezca sin volverse caótico.
 
 ---
 
+## 🧰 Requisitos para correr este step
+
+- Setup transversal completado en Step 0
+- Entorno virtual activo
+- Dependencias instaladas desde `day_23/requirements.txt`
+
+---
+
+## 📦 Instalación (si aún no instalaste dependencias)
+
+```bash
+source .venv/bin/activate
+pip install -r day_23/requirements.txt
+```
+
+---
+
+## ▶️ Cómo correr este step
+
+```bash
+uvicorn main:app --reload --app-dir day_23/step7-refactor-servicio-simple
+```
+
+Abre:
+- `http://127.0.0.1:8000/docs`
+
+---
+
 ## 🧠 ¿Qué problema resuelve este refactor?
 
 En proyectos reales, meter todo en `main.py` se vuelve difícil de mantener.

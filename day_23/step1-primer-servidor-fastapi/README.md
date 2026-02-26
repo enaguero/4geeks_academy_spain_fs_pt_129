@@ -6,12 +6,20 @@ Levantar tu primera API moderna con FastAPI y exponer endpoints básicos.
 
 ---
 
-## ⚙️ Setup mínimo
+## 🧰 Requisitos para correr este step
+
+- Haber completado el setup transversal del Step 0
+- Entorno virtual activo (`source .venv/bin/activate`)
+- Dependencias instaladas (`fastapi`, `uvicorn`)
+
+---
+
+## 📦 Instalación (solo si aún no hiciste Step 0)
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-pip install fastapi "uvicorn[standard]"
+pip install -r day_23/requirements.txt
 ```
 
 ---
@@ -33,7 +41,7 @@ def root():
 ## ▶️ Ejecutar servidor
 
 ```bash
-uvicorn main:app --reload
+uvicorn main:app --reload --app-dir day_23/step1-primer-servidor-fastapi
 ```
 
 - `main`: nombre del archivo
