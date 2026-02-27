@@ -143,5 +143,4 @@ GET /products/123iqweqw-12312niadsa
 GET /users/:userId/products
 
 GET /users/absd2-123tr-quwquqw4
-
 ```
