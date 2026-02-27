@@ -246,10 +246,11 @@ Todas las clases y el contenido de apoyo en este repositorio han sido creados en
 
 ---
 
-### **Día 23: Your First API (FastAPI)**
-- **READ** – [Building RESTful APIs using Flask](https://4geeks.com/syllabus/spain-fs-pt-129/read/building-apis-with-python-flask) *(conceptos HTTP/REST; implementación de clase en FastAPI)*
+### **Día 23: Your First API (Flask + FastAPI)**
+- **READ** – [Building RESTful APIs using Flask](https://4geeks.com/syllabus/spain-fs-pt-129/read/building-apis-with-python-flask)
+- **READ** – [Flask - Quickstart](https://flask.palletsprojects.com/en/latest/quickstart/)
 - **READ** – [FastAPI - First Steps](https://fastapi.tiangolo.com/tutorial/first-steps/)
-- **PROJECT** – [Interactive Todo List API with Python and Flask](https://4geeks.com/syllabus/spain-fs-pt-129/project/python-flask-api-tutorial) *(adaptar y construir en FastAPI)*
+- **PROJECT** – [Interactive Todo List API with Python and Flask](https://4geeks.com/syllabus/spain-fs-pt-129/project/python-flask-api-tutorial) *(recomendado construir versión Flask y versión FastAPI)*
 
 ---
 
