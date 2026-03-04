@@ -19,6 +19,69 @@ Este plan está diseñado para estudiantes que ya manejan fundamentos de Python:
 
 ---
 
+## 🛠️ Laboratorio SQLite local (CLI + DBeaver)
+
+Sí, es totalmente posible trabajar el día 25 con una base SQLite local y levantarla con comandos simples.
+
+SQLite no necesita servidor ni puerto: la base es un archivo `.db` que puedes abrir tanto con `sqlite3` como con DBeaver.
+
+### Estructura añadida en `day_25`
+
+```text
+day_25/
+├── Makefile
+├── scripts/
+│   ├── db_init.sh
+│   ├── db_reset.sh
+│   ├── db_blank.sh
+│   ├── db_shell.sh
+│   └── db_query.sh
+└── sqlite/
+    ├── schema.sql
+    ├── seed.sql
+    └── practice.sql
+```
+
+### Comandos recomendados
+
+Desde `day_25/`:
+
+```bash
+make help      # lista comandos disponibles
+make db-init   # crea sqlite/day25.db + schema + seed
+make db-demo   # ejecuta consultas de sqlite/practice.sql
+make db-shell  # abre consola sqlite3 en la base
+make db-reset  # borra y recrea la base desde cero
+make db-blank  # deja sqlite/day25.db vacia (sin tablas ni datos)
+```
+
+Desde la raíz del repo:
+
+```bash
+make -C day_25 help
+make -C day_25 db-init
+make -C day_25 db-demo
+```
+
+Sin `make` (directo con scripts):
+
+```bash
+./day_25/scripts/db_init.sh
+./day_25/scripts/db_query.sh
+./day_25/scripts/db_shell.sh
+./day_25/scripts/db_reset.sh
+./day_25/scripts/db_blank.sh
+```
+
+### Abrir la base con DBeaver
+
+1. Crear conexión nueva y elegir **SQLite**.
+2. En `Database file`, seleccionar:
+   - `.../4geeks_academy_spain_fs_pt_129/day_25/sqlite/day25.db`
+3. Conectar y refrescar el esquema para ver tablas (`students`, `profiles`, `courses`, `lessons`, `enrollments`).
+
+---
+
 ## 🧭 Ruta incremental de aprendizaje
 
 ### Bloque 1: ¿Qué es SQL y qué problema resuelve? (20 min)
