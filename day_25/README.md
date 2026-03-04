@@ -32,7 +32,9 @@ day_25/
 ├── Makefile
 ├── scripts/
 │   ├── db_init.sh
+│   ├── db_seed.sh
 │   ├── db_reset.sh
+│   ├── db_drop.sh
 │   ├── db_blank.sh
 │   ├── db_shell.sh
 │   └── db_query.sh
@@ -48,28 +50,69 @@ Desde `day_25/`:
 
 ```bash
 make help      # lista comandos disponibles
-make db-init   # crea sqlite/day25.db + schema + seed
+make db-schema # crea sqlite/day25.db solo con tablas (schema)
+make db-seed   # inserta datos de sqlite/seed.sql
+make db-setup  # recrea sqlite/day25.db con tablas + datos (schema + seed)
+make db-drop   # elimina sqlite/day25.db
 make db-demo   # ejecuta consultas de sqlite/practice.sql
 make db-shell  # abre consola sqlite3 en la base
-make db-reset  # borra y recrea la base desde cero
+make db-reset  # ejecuta db-drop + db-setup
 make db-blank  # deja sqlite/day25.db vacia (sin tablas ni datos)
+make db-init   # alias de db-schema (compatibilidad)
 ```
 
 Desde la raíz del repo:
 
 ```bash
 make -C day_25 help
-make -C day_25 db-init
+make -C day_25 db-schema
+make -C day_25 db-seed
+make -C day_25 db-setup
 make -C day_25 db-demo
 ```
+
+### 🧠 ¿Qué es `make` y cómo funciona?
+
+`make` es una herramienta de automatización. En vez de memorizar comandos largos, ejecutas un nombre corto (un *target*) definido en el archivo `Makefile`.
+
+En este proyecto, cada target de base de datos llama un script en `scripts/`:
+
+- `make db-schema` ejecuta `./scripts/db_init.sh`
+- `make db-seed` ejecuta `./scripts/db_seed.sh`
+- `make db-setup` ejecuta `./scripts/db_reset.sh`
+- `make db-drop` ejecuta `./scripts/db_drop.sh`
+
+Piensa en `make` como un menú de acciones estandarizadas para el equipo:
+
+- Evita errores por copiar/pegar comandos manuales.
+- Hace que todos usen el mismo flujo.
+- Facilita documentar y enseñar el laboratorio.
+
+Estructura mínima de un `Makefile`:
+
+```make
+nombre-del-target:
+	comando-que-se-ejecuta
+```
+
+Ejemplo real de este repo:
+
+```make
+db-schema:
+	./scripts/db_init.sh "$(DB_FILE)"
+```
+
+Cuando corres `make db-schema`, `make` busca ese bloque y ejecuta la línea con `./scripts/db_init.sh`.
 
 Sin `make` (directo con scripts):
 
 ```bash
 ./day_25/scripts/db_init.sh
+./day_25/scripts/db_seed.sh
 ./day_25/scripts/db_query.sh
 ./day_25/scripts/db_shell.sh
 ./day_25/scripts/db_reset.sh
+./day_25/scripts/db_drop.sh
 ./day_25/scripts/db_blank.sh
 ```
 
@@ -90,11 +133,19 @@ Una base de datos relacional sirve para guardar información de forma persistent
 
 SQL (Structured Query Language) es el lenguaje estándar para hablar con esa base de datos. Con SQL pedimos datos (`SELECT`), filtramos (`WHERE`), ordenamos (`ORDER BY`), agrupamos (`GROUP BY`) y relacionamos tablas (`JOIN`). Es decir, SQL es el puente entre el problema real y la información almacenada.
 
+`FROM`
+
 Conceptos base:
 
 - **Tabla**: colección de registros del mismo tipo (por ejemplo, estudiantes).
 - **Fila**: un registro individual (por ejemplo, un estudiante concreto).
 - **Columna**: una propiedad del registro (por ejemplo, `name`, `email`).
+
+```
+SELECT column_one, column_two, ...
+FROM table_name
+WHERE column_one ~ "Erwin"
+```
 
 ---
 

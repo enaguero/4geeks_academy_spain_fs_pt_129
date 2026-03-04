@@ -11,19 +11,17 @@ if ! command -v sqlite3 >/dev/null 2>&1; then
     exit 1
 fi
 
-case "$DB_FILE" in
-    *.db) ;;
-    *)
-        echo "Error: la ruta de base de datos debe terminar en .db"
-        exit 1
-        ;;
-esac
-
-if [ -f "$DB_FILE" ]; then
-    rm -f "$DB_FILE"
+if [ ! -f "$DB_FILE" ]; then
+    echo "No existe la base: $DB_FILE"
+    echo "Ejecuta primero scripts/db_init.sh o make db-schema"
+    exit 1
 fi
 
-"$ROOT_DIR/scripts/db_init.sh" "$DB_FILE"
+if [ ! -f "$SEED_FILE" ]; then
+    echo "No existe el archivo seed: $SEED_FILE"
+    exit 1
+fi
+
 sqlite3 "$DB_FILE" < "$SEED_FILE"
 
-echo "Base SQLite recreada con schema + seed en: $DB_FILE"
+echo "Datos insertados correctamente en: $DB_FILE"

@@ -4,12 +4,6 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DB_DIR="$ROOT_DIR/sqlite"
 DB_FILE="${1:-$DB_DIR/day25.db}"
-SEED_FILE="$DB_DIR/seed.sql"
-
-if ! command -v sqlite3 >/dev/null 2>&1; then
-    echo "Error: sqlite3 no esta instalado. Instala sqlite3 y vuelve a intentarlo."
-    exit 1
-fi
 
 case "$DB_FILE" in
     *.db) ;;
@@ -21,9 +15,7 @@ esac
 
 if [ -f "$DB_FILE" ]; then
     rm -f "$DB_FILE"
+    echo "Base SQLite eliminada: $DB_FILE"
+else
+    echo "No existe la base: $DB_FILE"
 fi
-
-"$ROOT_DIR/scripts/db_init.sh" "$DB_FILE"
-sqlite3 "$DB_FILE" < "$SEED_FILE"
-
-echo "Base SQLite recreada con schema + seed en: $DB_FILE"
