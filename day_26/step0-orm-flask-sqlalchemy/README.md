@@ -67,6 +67,10 @@ Mapa mental:
 - `id`, `email` -> columnas
 - instancia `User(...)` -> fila
 
+```
+user = User("student@4geeks.com")
+```
+
 ---
 
 ## 5) Qué debes dominar antes de pasar al Step 1

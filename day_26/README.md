@@ -36,6 +36,7 @@ day_26/
 ├── example_app.py
 ├── example_models.py
 ├── example_queries.py
+├── JOINs-guia-visual.md          # 📊 Guía visual de JOINs con diagramas
 ├── step0-orm-flask-sqlalchemy/
 │   └── README.md
 ├── step1-relaciones-modelos/
@@ -81,7 +82,8 @@ python -m day_26.example_queries
 2. `step1-relaciones-modelos`
 3. `step2-migraciones-flask-migrate`
 4. `step3-crud-y-joins`
-5. `step4-proyectos-modelado`
+5. `JOINs-guia-visual.md` — Referencia visual para profundizar en JOINs
+6. `step4-proyectos-modelado`
 
 ---
 
@@ -91,5 +93,7 @@ python -m day_26.example_queries
 - [ ] Sé explicar por qué el ORM real es SQLAlchemy.
 - [ ] Puedo modelar al menos una relación `1-1`, `1-N` y `N-N`.
 - [ ] Puedo ejecutar `db migrate` y `db upgrade` sin romper el esquema.
+- [ ] Entiendo qué es CRUD y cómo se relaciona con REST API y SQL.
 - [ ] Puedo construir queries con `JOIN` para casos de negocio.
+- [ ] Sé la diferencia entre INNER JOIN y LEFT JOIN.
 - [ ] Tengo avance real en el modelado de Instagram o StarWars.

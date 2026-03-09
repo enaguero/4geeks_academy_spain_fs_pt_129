@@ -13,6 +13,40 @@ Practicar consultas reales con SQLAlchemy ORM:
 
 ---
 
+## 📖 ¿Qué es CRUD?
+
+**CRUD** es el acrónimo de las cuatro operaciones fundamentales que puedes realizar sobre datos persistentes:
+
+| Letra | Operación | Significado                         |
+| ----- | --------- | ----------------------------------- |
+| **C** | Create    | Crear nuevos registros              |
+| **R** | Read      | Leer/consultar registros existentes |
+| **U** | Update    | Modificar registros existentes      |
+| **D** | Delete    | Eliminar registros                  |
+
+### ¿Por qué es importante?
+
+Prácticamente **toda aplicación que almacena datos** necesita estas cuatro operaciones. Ya sea una red social, un e-commerce, o un blog — todas crean, leen, actualizan y eliminan datos.
+
+### 🔗 La conexión CRUD → SQL → HTTP → ORM
+
+Lo interesante es que CRUD se mapea directamente a:
+
+- **SQL**: Los comandos que la base de datos entiende
+- **HTTP**: Los métodos que las REST APIs usan
+- **ORM**: Los métodos de Python/SQLAlchemy
+
+| CRUD       | SQL           | HTTP Method     | SQLAlchemy ORM                    | Endpoint típico               |
+| ---------- | ------------- | --------------- | --------------------------------- | ----------------------------- |
+| **Create** | `INSERT INTO` | `POST`          | `db.session.add(obj)`             | `POST /users`                 |
+| **Read**   | `SELECT`      | `GET`           | `db.session.execute(select(...))` | `GET /users` o `GET /users/1` |
+| **Update** | `UPDATE`      | `PUT` / `PATCH` | `obj.campo = nuevo_valor`         | `PUT /users/1`                |
+| **Delete** | `DELETE`      | `DELETE`        | `db.session.delete(obj)`          | `DELETE /users/1`             |
+
+> 💡 **Insight clave**: Cuando construyes una REST API con Flask, cada endpoint típicamente ejecuta una de estas operaciones CRUD en la base de datos.
+
+---
+
 ## 1) Base de ejemplo
 
 Modelos y app usados en este step:
@@ -23,7 +57,21 @@ Modelos y app usados en este step:
 
 ---
 
-## 2) INSERT de filas específicas
+## 2) CREATE — INSERT de filas específicas
+
+### ¿Qué hace?
+
+Crea uno o más registros nuevos en la base de datos.
+
+### ¿Cuándo usarlo?
+
+- Registro de nuevos usuarios
+- Crear posts, comentarios, productos
+- Cualquier formulario de "crear nuevo X"
+
+### En REST API
+
+Típicamente se invoca con `POST /recurso` y el body contiene los datos del nuevo registro.
 
 ### ORM
 
@@ -46,7 +94,21 @@ VALUES (LAST_INSERT_ROWID(), 'Me interesan migraciones y joins');
 
 ---
 
-## 3) UPDATE de fila específica
+## 3) UPDATE — Modificar fila específica
+
+### ¿Qué hace?
+
+Modifica los valores de uno o más campos de un registro existente.
+
+### ¿Cuándo usarlo?
+
+- Editar perfil de usuario
+- Cambiar estado de un pedido
+- Actualizar cualquier dato existente
+
+### En REST API
+
+Típicamente se invoca con `PUT /recurso/{id}` o `PATCH /recurso/{id}`.
 
 ### ORM
 
@@ -67,7 +129,22 @@ WHERE id = 2;
 
 ---
 
-## 4) SELECT simple y filtrado
+## 4) READ — SELECT simple y filtrado
+
+### ¿Qué hace?
+
+Consulta y recupera registros de la base de datos, opcionalmente con filtros.
+
+### ¿Cuándo usarlo?
+
+- Mostrar lista de usuarios
+- Buscar un producto por ID
+- Filtrar posts por categoría
+- Cualquier pantalla que muestre datos
+
+### En REST API
+
+Típicamente se invoca con `GET /recurso` (listar) o `GET /recurso/{id}` (obtener uno).
 
 ### ORM
 
@@ -86,7 +163,25 @@ WHERE username = 'luis_data';
 
 ---
 
-## 5) DELETE de fila específica
+## 5) DELETE — Eliminar fila específica
+
+### ¿Qué hace?
+
+Elimina permanentemente un registro de la base de datos.
+
+### ¿Cuándo usarlo?
+
+- Eliminar cuenta de usuario
+- Borrar un post o comentario
+- Remover un producto del catálogo
+
+### En REST API
+
+Típicamente se invoca con `DELETE /recurso/{id}`.
+
+### ⚠️ Precaución
+
+El DELETE es permanente. En producción, considera usar "soft delete" (marcar como eliminado con un campo `deleted_at` en lugar de borrar físicamente).
 
 ### ORM
 
@@ -106,6 +201,140 @@ if character is not None:
 DELETE FROM characters
 WHERE name = 'Leia Organa';
 ```
+
+---
+
+## 🌐 CRUD en Flask: Endpoints REST completos
+
+Aquí tienes ejemplos de cómo se ve cada operación CRUD implementada como endpoint Flask:
+
+### Setup previo
+
+```python
+from flask import Flask, request, jsonify
+from sqlalchemy import select
+from day_26.example_app import create_app, db
+from day_26.example_models import User, UserProfile
+
+app = create_app()
+```
+
+### POST /users — Create
+
+```python
+@app.route('/users', methods=['POST'])
+def create_user():
+    body = request.get_json()
+
+    # Validación básica
+    if not body or 'email' not in body or 'username' not in body:
+        return jsonify({"error": "email y username son requeridos"}), 400
+
+    # Verificar si ya existe
+    existing = db.session.execute(
+        select(User).where(User.email == body['email'])
+    ).scalar_one_or_none()
+
+    if existing:
+        return jsonify({"error": "El email ya está registrado"}), 400
+
+    # Crear usuario
+    new_user = User(email=body['email'], username=body['username'])
+    if 'bio' in body:
+        new_user.profile = UserProfile(bio=body['bio'])
+
+    db.session.add(new_user)
+    db.session.commit()
+
+    return jsonify({
+        "id": new_user.id,
+        "email": new_user.email,
+        "username": new_user.username
+    }), 201
+```
+
+### GET /users/{id} — Read
+
+```python
+@app.route('/users/<int:user_id>', methods=['GET'])
+def get_user(user_id):
+    user = db.session.get(User, user_id)
+
+    if user is None:
+        return jsonify({"error": "Usuario no encontrado"}), 404
+
+    return jsonify({
+        "id": user.id,
+        "email": user.email,
+        "username": user.username,
+        "bio": user.profile.bio if user.profile else None
+    }), 200
+```
+
+### PUT /users/{id} — Update
+
+```python
+@app.route('/users/<int:user_id>', methods=['PUT'])
+def update_user(user_id):
+    user = db.session.get(User, user_id)
+
+    if user is None:
+        return jsonify({"error": "Usuario no encontrado"}), 404
+
+    body = request.get_json()
+
+    # Actualizar campos si vienen en el body
+    if 'email' in body:
+        user.email = body['email']
+    if 'username' in body:
+        user.username = body['username']
+    if 'bio' in body:
+        if user.profile:
+            user.profile.bio = body['bio']
+        else:
+            user.profile = UserProfile(bio=body['bio'])
+
+    db.session.commit()
+
+    return jsonify({
+        "id": user.id,
+        "email": user.email,
+        "username": user.username
+    }), 200
+```
+
+### DELETE /users/{id} — Delete
+
+```python
+@app.route('/users/<int:user_id>', methods=['DELETE'])
+def delete_user(user_id):
+    user = db.session.get(User, user_id)
+
+    if user is None:
+        return jsonify({"error": "Usuario no encontrado"}), 404
+
+    db.session.delete(user)
+    db.session.commit()
+
+    return jsonify({"message": "Usuario eliminado correctamente"}), 200
+```
+
+### Resumen de códigos de estado HTTP
+
+| Operación     | Éxito         | Error común                         |
+| ------------- | ------------- | ----------------------------------- |
+| POST (Create) | `201 Created` | `400 Bad Request` (datos inválidos) |
+| GET (Read)    | `200 OK`      | `404 Not Found`                     |
+| PUT (Update)  | `200 OK`      | `404 Not Found`                     |
+| DELETE        | `200 OK`      | `404 Not Found`                     |
+
+---
+
+## 📊 JOINs — Guía Visual
+
+Para una explicación detallada de los tipos de JOIN con diagramas visuales y ejemplos paso a paso, consulta:
+
+👉 **[JOINs-guia-visual.md](../JOINs-guia-visual.md)**
 
 ---
 

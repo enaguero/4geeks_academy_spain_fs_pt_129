@@ -27,14 +27,15 @@ def insert_seed_data():
 
 def insert_specific_user(email, username, bio):
     new_user = User(email=email, username=username)
-    new_user.profile = UserProfile(bio=bio)
+    new_profile = UserProfile(bio=bio)  
+    new_user.profile = new_profile
     db.session.add(new_user)
     db.session.commit()
     return new_user.id
 
-
 def update_user_email(user_id, new_email):
     user = db.session.get(User, user_id)
+    # Select * from users where id = user_id
     if user is None:
         return False
 
