@@ -328,6 +328,49 @@ if user and bcrypt.checkpw(password, user.password_hash):
     # Usuario autenticado
 ```
 
+#### ¿Qué hace `bcrypt.checkpw()`?
+
+`checkpw` significa **"check password"** (verificar contraseña). Esta función compara una contraseña en texto plano con un hash guardado.
+
+```python
+bcrypt.checkpw(password, user.password_hash)
+#              ^^^^^^^^  ^^^^^^^^^^^^^^^^^^
+#              Lo que el usuario escribió    Lo que está guardado en la DB
+#              (texto plano)                 (hash)
+```
+
+**¿Cómo funciona por dentro?**
+
+```mermaid
+flowchart LR
+    subgraph Input["Entrada"]
+        P["password = 'hola123'"]
+        H["password_hash = '$2b$12$xyz...'"]
+    end
+
+    subgraph Proceso["bcrypt.checkpw()"]
+        direction TB
+        A["1. Toma 'hola123'"]
+        B["2. La hashea con bcrypt"]
+        C["3. Compara con '$2b$12$xyz...'"]
+    end
+
+    subgraph Output["Resultado"]
+        T["True ✅ - Coinciden"]
+        F["False ❌ - No coinciden"]
+    end
+
+    P --> A
+    H --> C
+    A --> B --> C
+    C -->|"iguales"| T
+    C -->|"diferentes"| F
+```
+
+**Analogía**: Es como comparar huellas dactilares. No puedes "reconstruir" el dedo desde la huella, pero puedes comparar si dos huellas son iguales.
+
+---
+
 ### 2. Autorización (Authorization)
 
 Verificar que el usuario tiene permiso para la acción.
@@ -364,6 +407,35 @@ return {"id": user.id, "username": user.username}
 | **Sesiones**      | Stateful, servidor guarda estado (antiguo)  |
 | **JWT**           | Stateless, token auto-contenido (moderno)   |
 | **Stateless**     | El servidor no guarda información de sesión |
+
+---
+
+## 🧪 Mini-reto: ¿Autenticación o Autorización?
+
+Clasifica cada escenario. Las respuestas están al final.
+
+| #   | Escenario                                                                    | ¿AuthN o AuthZ? |
+| --- | ---------------------------------------------------------------------------- | --------------- |
+| 1   | Un usuario ingresa su email y contraseña                                     | ?               |
+| 2   | Verificar si un usuario es administrador antes de borrar un post             | ?               |
+| 3   | Google te pregunta si quieres usar tu cuenta de Google para entrar a Spotify | ?               |
+| 4   | Un estudiante intenta acceder a las notas de otro estudiante                 | ?               |
+| 5   | Escanear tu huella dactilar para desbloquear el teléfono                     | ?               |
+| 6   | Netflix verifica si tu plan incluye 4K antes de mostrarte esa opción         | ?               |
+
+<details>
+<summary>Ver respuestas</summary>
+
+| #   | Escenario                 | Respuesta                                                    |
+| --- | ------------------------- | ------------------------------------------------------------ |
+| 1   | Ingresar email/contraseña | **Autenticación** — verificando identidad                    |
+| 2   | Verificar si es admin     | **Autorización** — verificando permisos                      |
+| 3   | Login con Google          | **Autenticación** — verificando identidad                    |
+| 4   | Acceder a notas de otro   | **Autorización** — ¿tiene permiso para ese recurso?          |
+| 5   | Huella dactilar           | **Autenticación** — verificando identidad biométrica         |
+| 6   | Verificar plan Netflix    | **Autorización** — verificando qué features tiene permitidas |
+
+</details>
 
 ---
 

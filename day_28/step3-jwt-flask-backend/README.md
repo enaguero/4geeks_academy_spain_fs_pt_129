@@ -89,6 +89,79 @@ JWT_SECRET_KEY=mi-clave-super-secreta-cambiar-en-produccion
 
 ## 2️⃣ Modelo de Usuario
 
+### Antes del código: ¿Qué es un Hash?
+
+Antes de ver el modelo, necesitas entender por qué usamos `bcrypt` y qué significa "hashear" una contraseña.
+
+#### El problema: ¿Cómo guardar contraseñas?
+
+```python
+# ❌ NUNCA hagas esto - guardar contraseña en texto plano
+class User(db.Model):
+    password = db.Column(db.String(80))  # "hola123" → se guarda "hola123"
+```
+
+Si alguien hackea tu base de datos, tiene TODAS las contraseñas.
+
+#### La solución: Hash (función de un solo sentido)
+
+Un **hash** es como una **licuadora digital**:
+
+```mermaid
+flowchart LR
+    subgraph Licuadora["🔄 Hash (bcrypt)"]
+        direction TB
+        Input["'hola123'"] --> Process["Algoritmo<br/>matemático"]
+        Process --> Output["'$2b$12$LQv3c...'"]
+    end
+
+    subgraph Imposible["❌ No se puede revertir"]
+        Output2["'$2b$12$LQv3c...'"] -.-x Input2["'???'"]
+    end
+```
+
+| Concepto         | Analogía de la licuadora                           |
+| ---------------- | -------------------------------------------------- |
+| **Hash**         | Licuar una fruta → obtienes jugo                   |
+| **Irreversible** | NO puedes "deslicuar" el jugo → recuperar la fruta |
+| **Determinista** | La misma fruta siempre da el mismo jugo            |
+| **Verificación** | Para comprobar, licuas otra fruta y comparas jugos |
+
+#### ¿Cómo verificamos contraseñas entonces?
+
+```mermaid
+sequenceDiagram
+    participant U as Usuario
+    participant S as Servidor
+    participant DB as Database
+
+    Note over U,DB: Durante el registro
+    U->>S: password = "hola123"
+    S->>S: hash = bcrypt("hola123") → "$2b$12$LQv..."
+    S->>DB: Guardar hash (NO la contraseña)
+
+    Note over U,DB: Durante el login
+    U->>S: password = "hola123"
+    S->>DB: Obtener hash guardado
+    DB-->>S: "$2b$12$LQv..."
+    S->>S: bcrypt("hola123") → ¿coincide con "$2b$12$LQv..."?
+    S-->>U: ✅ Contraseña correcta
+```
+
+#### ¿Por qué bcrypt y no otro hash?
+
+| Algoritmo  | Velocidad           | Seguridad | ¿Para contraseñas? |
+| ---------- | ------------------- | --------- | ------------------ |
+| MD5        | Muy rápido          | ❌ Roto   | ❌ NO              |
+| SHA-256    | Muy rápido          | ✅ Seguro | ❌ NO (muy rápido) |
+| **bcrypt** | Lento (a propósito) | ✅ Seguro | ✅ SÍ              |
+
+**bcrypt es lento a propósito**: Si un atacante intenta adivinar millones de contraseñas, cada intento tarda ~100ms. Eso hace que fuerza bruta sea impracticable.
+
+---
+
+### El código del modelo
+
 ```python
 class User(db.Model):
     __tablename__ = "users"
@@ -243,6 +316,62 @@ sequenceDiagram
 
 Esta es la trinidad de `flask-jwt-extended`. Entender cómo se conectan es **fundamental**.
 
+### Primero: ¿Qué es un decorador en Python?
+
+Si ves `@algo` arriba de una función y no entiendes qué hace, esta sección es para ti.
+
+Un **decorador** es una función que **"envuelve" otra función** para añadirle funcionalidad sin modificar su código.
+
+#### Analogía: El guardia de seguridad
+
+```mermaid
+flowchart LR
+    subgraph SinDecorador["❌ Sin decorador"]
+        R1["Request"] --> F1["get_profile()"]
+        F1 --> D1["Retorna datos"]
+    end
+
+    subgraph ConDecorador["✅ Con @jwt_required()"]
+        R2["Request"] --> G["🔒 Guardia<br/>(jwt_required)"]
+        G -->|"Token válido"| F2["get_profile()"]
+        G -->|"Token inválido"| X["❌ 401 Error"]
+        F2 --> D2["Retorna datos"]
+    end
+```
+
+Es como poner un **guardia de seguridad** en la puerta de una función:
+
+```python
+# SIN decorador - cualquiera puede entrar
+def get_profile():
+    return {"user": "datos secretos"}
+
+# CON decorador - el guardia verifica primero
+@jwt_required()  # ← "Antes de dejar pasar, verifica el token"
+def get_profile():
+    return {"user": "datos secretos"}
+```
+
+#### ¿Cómo funciona por dentro? (opcional)
+
+Si tienes curiosidad, un decorador es solo una función que recibe otra función:
+
+```python
+# Esto:
+@jwt_required()
+def get_profile():
+    pass
+
+# Es equivalente a esto:
+def get_profile():
+    pass
+get_profile = jwt_required()(get_profile)  # Envuelve la función
+```
+
+No necesitas entender esto para usar decoradores — solo saber que **añaden comportamiento extra** a tus funciones.
+
+---
+
 ### El ciclo completo del identity
 
 ```mermaid
@@ -252,17 +381,17 @@ flowchart LR
         B["create_access_token(identity='5')"]
         C["JWT generado con sub='5'"]
     end
-    
+
     subgraph Token["📦 Dentro del JWT"]
         D["payload: {sub: '5', exp: ...}"]
     end
-    
+
     subgraph Request["🔒 En endpoint protegido"]
         E["@jwt_required()"]
         F["get_jwt_identity()"]
         G["Retorna '5'"]
     end
-    
+
     A --> B --> C --> D
     D -->|"Authorization: Bearer token"| E
     E -->|"Token válido"| F --> G
@@ -270,11 +399,11 @@ flowchart LR
 
 ### ¿Qué hace cada función?
 
-| Función | Cuándo se usa | Qué hace |
-|---------|---------------|----------|
-| `create_access_token(identity=X)` | En el **login** | Crea un JWT con `X` guardado en el claim `sub` |
-| `@jwt_required()` | Como **decorador** de endpoints | Verifica que el request tenga un JWT válido |
-| `get_jwt_identity()` | **Dentro** del endpoint protegido | Extrae y retorna el valor de `identity` del token |
+| Función                           | Cuándo se usa                     | Qué hace                                          |
+| --------------------------------- | --------------------------------- | ------------------------------------------------- |
+| `create_access_token(identity=X)` | En el **login**                   | Crea un JWT con `X` guardado en el claim `sub`    |
+| `@jwt_required()`                 | Como **decorador** de endpoints   | Verifica que el request tenga un JWT válido       |
+| `get_jwt_identity()`              | **Dentro** del endpoint protegido | Extrae y retorna el valor de `identity` del token |
 
 ---
 
@@ -383,9 +512,9 @@ Esta función **extrae el identity** del token que ya fue verificado por `@jwt_r
 def get_profile():
     # Obtener el identity que guardamos en el login
     current_user_id = get_jwt_identity()
-    
+
     # current_user_id = "5" (el string que pasamos a create_access_token)
-    
+
     # Ahora podemos buscar al usuario en la DB
     user = User.query.get(current_user_id)
 ```
@@ -400,12 +529,12 @@ sequenceDiagram
     participant DB as Database
 
     Note over Cliente,DB: 1. Login previo generó token con identity="5"
-    
+
     Cliente->>Decorador: GET /api/profile<br/>Authorization: Bearer eyJ...
     Decorador->>Decorador: Extraer token del header
     Decorador->>Decorador: Verificar firma con SECRET_KEY
     Decorador->>Decorador: Verificar que no expiró
-    
+
     alt Token inválido
         Decorador-->>Cliente: 401 Error
     else Token válido
@@ -465,11 +594,11 @@ Un caso muy común es verificar que el usuario solo pueda acceder a **sus propio
 @jwt_required()
 def get_user_posts(user_id):
     current_user_id = get_jwt_identity()
-    
+
     # 🛡️ Verificar que es el mismo usuario
     if int(current_user_id) != user_id:
         return jsonify({"error": "No autorizado"}), 403
-    
+
     user = User.query.get(user_id)
     return jsonify([post.serialize() for post in user.posts]), 200
 ```
@@ -497,11 +626,11 @@ from flask_jwt_extended import create_refresh_token, jwt_required, get_jwt_ident
 @app.route("/api/login", methods=["POST"])
 def login():
     # ... verificar credenciales ...
-    
+
     # Crear ambos tokens
     access_token = create_access_token(identity=str(user.id))
     refresh_token = create_refresh_token(identity=str(user.id))
-    
+
     return jsonify({
         "access_token": access_token,    # Expira en 1 hora
         "refresh_token": refresh_token   # Expira en 30 días
@@ -512,10 +641,10 @@ def login():
 @jwt_required(refresh=True)  # 👈 Solo acepta refresh tokens
 def refresh():
     current_user_id = get_jwt_identity()
-    
+
     # Crear nuevo access token
     new_access_token = create_access_token(identity=current_user_id)
-    
+
     return jsonify({
         "access_token": new_access_token
     }), 200
@@ -529,19 +658,19 @@ sequenceDiagram
     Note over C,S: Login inicial
     C->>S: POST /api/login
     S-->>C: {access_token, refresh_token}
-    
+
     Note over C,S: Usar access_token (1 hora)
     C->>S: GET /api/profile (access_token)
     S-->>C: 200 {data}
-    
+
     Note over C,S: Access token expira
     C->>S: GET /api/profile (access_token expirado)
     S-->>C: 401 Token expirado
-    
+
     Note over C,S: Renovar con refresh_token
     C->>S: POST /api/refresh (refresh_token)
     S-->>C: {access_token: nuevo}
-    
+
     Note over C,S: Continuar con nuevo token
     C->>S: GET /api/profile (nuevo access_token)
     S-->>C: 200 {data}
@@ -557,17 +686,17 @@ flowchart TB
         CA["create_access_token(identity=user.id)"]
         CB["Guarda identity en el claim 'sub' del JWT"]
     end
-    
+
     subgraph Proteger["2️⃣ PROTEGER (Decorador)"]
         PA["@jwt_required()"]
         PB["Verifica token antes de ejecutar el endpoint"]
     end
-    
+
     subgraph Usar["3️⃣ USAR (Dentro del endpoint)"]
         UA["get_jwt_identity()"]
         UB["Recupera el identity guardado"]
     end
-    
+
     Crear --> Proteger --> Usar
 ```
 
@@ -892,6 +1021,75 @@ curl -X GET http://localhost:5000/api/profile \
 curl -X GET http://localhost:5000/api/profile
 # {"error": "Token requerido"}
 ```
+
+---
+
+## 🧪 Mini-retos
+
+### Reto 1: Agrega un campo al usuario
+
+Modifica el endpoint de signup para que también guarde el campo `full_name`:
+
+```python
+# POST /api/signup
+# Body: {"email": "...", "username": "...", "password": "...", "full_name": "Juan Pérez"}
+```
+
+<details>
+<summary>Pista</summary>
+
+1. Agrega la columna al modelo: `full_name = db.Column(db.String(120))`
+2. En el endpoint de signup, lee `body["full_name"]`
+3. Asígnalo al crear el usuario: `new_user.full_name = body.get("full_name", "")`
+
+</details>
+
+### Reto 2: Endpoint que retorna "Hola, {username}"
+
+Crea un endpoint protegido `GET /api/hello` que retorne un saludo personalizado:
+
+```python
+# GET /api/hello (con token)
+# Response: {"message": "Hola, luis_dev!"}
+```
+
+<details>
+<summary>Solución</summary>
+
+```python
+@app.route("/api/hello", methods=["GET"])
+@jwt_required()
+def hello():
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+
+    if not user:
+        return jsonify({"error": "Usuario no encontrado"}), 404
+
+    return jsonify({"message": f"Hola, {user.username}!"})
+```
+
+</details>
+
+### Reto 3: Validar longitud de contraseña
+
+Modifica el endpoint de signup para rechazar contraseñas menores a 6 caracteres:
+
+```python
+# POST /api/signup con password = "123"
+# Response: 400 {"error": "La contraseña debe tener al menos 6 caracteres"}
+```
+
+<details>
+<summary>Solución</summary>
+
+```python
+# En el endpoint de signup, antes de crear el usuario:
+if len(body["password"]) < 6:
+    return jsonify({"error": "La contraseña debe tener al menos 6 caracteres"}), 400
+```
+
+</details>
 
 ---
 

@@ -119,7 +119,7 @@ jwt = JWTManager(app)
 
 ### Paso 3-6: Backend - Modelo y endpoints
 
-Ver [step2-jwt-flask-backend](../step2-jwt-flask-backend/README.md) para el código completo.
+Ver [step3-jwt-flask-backend](../step3-jwt-flask-backend/README.md) para el código completo.
 
 ### Paso 7: Backend - CORS detallado
 
@@ -162,7 +162,7 @@ curl http://localhost:5000/api/profile \
 
 ### Paso 9-15: Frontend
 
-Ver [step3-rutas-protegidas-react](../step3-rutas-protegidas-react/README.md) para el código completo.
+Ver [step4-rutas-protegidas-react](../step4-rutas-protegidas-react/README.md) para el código completo.
 
 ---
 

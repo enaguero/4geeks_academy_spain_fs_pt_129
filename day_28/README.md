@@ -69,13 +69,15 @@ day_28/
 ├── requirements.txt
 ├── step0-conceptos-autenticacion/
 │   └── README.md          # ¿Qué es autenticación? ¿Por qué JWT?
-├── step1-que-es-jwt/
+├── step1-glosario-tecnico/
+│   └── README.md          # 📖 Glosario: Hash, Base64, Headers, Decoradores...
+├── step2-que-es-jwt/
 │   └── README.md          # Anatomía de un JWT, claims, firma
-├── step2-jwt-flask-backend/
+├── step3-jwt-flask-backend/
 │   └── README.md          # Implementación con flask-jwt-extended
-├── step3-rutas-protegidas-react/
+├── step4-rutas-protegidas-react/
 │   └── README.md          # PrivateRoute, Context de auth
-└── step4-flujo-completo/
+└── step5-flujo-completo/
     └── README.md          # Integración full-stack
 ```
 
@@ -104,10 +106,11 @@ Para el frontend se asume que ya tienes un proyecto React con:
 ## 🧭 Orden sugerido de estudio
 
 1. `step0-conceptos-autenticacion` — Fundamentos teóricos
-2. `step1-que-es-jwt` — Estructura y funcionamiento del token
-3. `step2-jwt-flask-backend` — Implementación en Flask
-4. `step3-rutas-protegidas-react` — Rutas privadas en React
-5. `step4-flujo-completo` — Integración frontend + backend
+2. `step1-glosario-tecnico` — Vocabulario esencial (consultar mientras avanzas)
+3. `step2-que-es-jwt` — Estructura y funcionamiento del token
+4. `step3-jwt-flask-backend` — Implementación en Flask
+5. `step4-rutas-protegidas-react` — Rutas privadas en React
+6. `step5-flujo-completo` — Integración frontend + backend
 
 ---
 

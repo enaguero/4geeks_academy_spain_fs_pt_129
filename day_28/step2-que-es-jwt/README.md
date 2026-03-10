@@ -132,6 +132,8 @@ Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1IiwiZW1haWwiOiJsdWlzQGV4
 
 ### En Python
 
+Este código te permite **ver qué hay dentro de un JWT** (sin verificar la firma). Es útil para entender cómo funciona internamente.
+
 ```python
 import base64
 import json
@@ -148,6 +150,47 @@ payload_b64 += "=" * (4 - len(payload_b64) % 4)
 payload = json.loads(base64.urlsafe_b64decode(payload_b64))
 print(payload)  # {'sub': '5'}
 ```
+
+#### Explicación línea por línea:
+
+```python
+import base64  # Librería para codificar/decodificar Base64
+import json    # Librería para trabajar con JSON
+```
+
+```python
+token = "eyJhbG...eyJzdW...signature"
+#       ^^^^^^^^ ^^^^^^^ ^^^^^^^^^
+#       Header   Payload Signature
+#       (parte 0)(parte 1)(parte 2)
+```
+
+```python
+payload_b64 = token.split(".")[1]
+#                   ^^^^^^^^^^
+#                   Divide por "." y toma el índice [1] (segunda parte)
+#                   Resultado: "eyJzdWIiOiI1In0"
+```
+
+```python
+payload_b64 += "=" * (4 - len(payload_b64) % 4)
+#              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#              Base64 necesita que la longitud sea múltiplo de 4
+#              Esto añade "=" al final si es necesario (padding)
+```
+
+```python
+payload = json.loads(base64.urlsafe_b64decode(payload_b64))
+#         ^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#         |          Decodifica Base64 → bytes
+#         Convierte bytes JSON a diccionario Python
+```
+
+```python
+print(payload)  # {'sub': '5'}
+```
+
+> 💡 **Nota**: En la práctica, no necesitas hacer esto manualmente. Las librerías como `flask-jwt-extended` lo hacen por ti. Este ejemplo es solo para entender cómo funciona internamente.
 
 ---
 
@@ -273,6 +316,65 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhbmFAZXhhbXBsZS5
    - ¿Qué algoritmo usa?
    - ¿Cuál es el email del usuario?
    - ¿Cuándo expira? (convierte el timestamp)
+
+---
+
+## 🧪 Mini-reto: Decodifica y analiza
+
+### Reto 1: ¿Qué contiene este token?
+
+Decodifica este JWT en [jwt.io](https://jwt.io) y responde las preguntas:
+
+```
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MiIsIm5hbWUiOiJNYXJpYSBHYXJjaWEiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MDk5MTM2MDAsImV4cCI6MTcwOTkyMDgwMH0.fake_signature
+```
+
+| Pregunta                                      | Tu respuesta |
+| --------------------------------------------- | ------------ |
+| ¿Cuál es el ID del usuario (sub)?             |              |
+| ¿Cuál es el nombre?                           |              |
+| ¿Qué rol tiene?                               |              |
+| ¿En cuántas horas expira? (calcula exp - iat) |              |
+
+<details>
+<summary>Ver respuestas</summary>
+
+| Pregunta             | Respuesta                                    |
+| -------------------- | -------------------------------------------- |
+| ID del usuario (sub) | `42`                                         |
+| Nombre               | `Maria Garcia`                               |
+| Rol                  | `admin`                                      |
+| Horas hasta expirar  | `(1709920800 - 1709913600) / 3600 = 2 horas` |
+
+</details>
+
+### Reto 2: ¿Por qué esto es un problema de seguridad?
+
+Un desarrollador junior creó este token:
+
+```json
+{
+  "sub": "1",
+  "email": "admin@empresa.com",
+  "password": "admin123",
+  "creditCard": "4111-1111-1111-1111"
+}
+```
+
+¿Qué está mal? ¿Por qué es peligroso?
+
+<details>
+<summary>Ver respuesta</summary>
+
+**Problemas graves:**
+
+1. **Contraseña en el payload** — Cualquiera puede decodificar el JWT con Base64 y ver la contraseña
+2. **Tarjeta de crédito** — Datos sensibles expuestos
+3. **El payload NO está cifrado** — Solo codificado en Base64, que es reversible
+
+**Recuerda:** El payload del JWT es como escribir en una postal — el cartero (y cualquiera) puede leerlo. Solo guarda información que es OK si alguien la ve.
+
+</details>
 
 ---
 
