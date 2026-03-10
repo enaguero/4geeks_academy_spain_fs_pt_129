@@ -22,12 +22,12 @@ flowchart TB
 
     subgraph Backend["⚙️ Backend (Flask)"]
         direction TB
-        AS[/api/signup]
-        AL[/api/login]
-        APR[/api/profile 🔒]
-        APV[/api/private 🔒]
-        JWT[JWT Manager]
-        BCR[bcrypt]
+        AS["/api/signup"]
+        AL["/api/login"]
+        APR["/api/profile 🔒"]
+        APV["/api/private 🔒"]
+        JWT["JWT Manager"]
+        BCR["bcrypt"]
     end
 
     subgraph Database["🗄️ Database"]
