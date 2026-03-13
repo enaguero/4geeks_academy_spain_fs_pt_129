@@ -116,7 +116,7 @@ flowchart LR
     end
 
     subgraph Imposible["❌ No se puede revertir"]
-        Output2["'$2b$12$LQv3c...'"] -.-x Input2["'???'"]
+        Output2["'$2b$12$LQv3c...'"] -.-> Input2["'???'"]
     end
 ```
 
@@ -181,11 +181,8 @@ return jsonify(user.serialize())  # ✅ → {"id": 5, "email": "luis@example.com
 
 ```mermaid
 flowchart LR
-    A["🐍 Objeto Python<br/>User(id=5, email='luis@...', password_hash='$2b$...')"]
-    -->|"serialize()"|
-    B["📖 Diccionario<br/>{id: 5, email: 'luis@...'}<br/>(sin password!)"]
-    -->|"jsonify()"|
-    C["📤 JSON por HTTP<br/>{\"id\": 5, \"email\": \"luis@...\"}"]
+    A["🐍 Objeto Python<br/>User(id=5, email='luis@...', password_hash='$2b$...')"] -->|"serialize()"| B["📖 Diccionario<br/>{id: 5, email: 'luis@...'}<br/>(sin password!)"]
+    B -->|"jsonify()"| C["📤 JSON por HTTP<br/>id: 5, email: luis@..."]
 ```
 
 > 💡 `serialize()` también actúa como **filtro de seguridad**: decides qué campos exponer y cuáles ocultar (como `password_hash`).
@@ -528,7 +525,7 @@ def get_profile():
 flowchart TD
     A["Request llega al endpoint"] --> B{"¿Header Authorization existe?"}
     B -->|No| C["❌ 401: Token requerido"]
-    B -->|Sí| D{"¿Formato correcto?<br/>Bearer <token>"}
+    B -->|Sí| D{"¿Formato correcto?<br/>Bearer TOKEN_JWT"}
     D -->|No| E["❌ 401: Formato inválido"]
     D -->|Sí| F{"¿Firma válida?<br/>Verificar con SECRET_KEY"}
     F -->|No| G["❌ 401: Token inválido"]
@@ -584,8 +581,8 @@ def get_profile():
 ```mermaid
 sequenceDiagram
     participant Cliente
-    participant Decorador as @jwt_required()
-    participant Función as get_profile()
+    participant Decorador as "@jwt_required()"
+    participant Funcion as "get_profile()"
     participant DB as Database
 
     Note over Cliente,DB: 1. Login previo generó token con identity="5"
@@ -598,11 +595,11 @@ sequenceDiagram
     alt Token inválido
         Decorador-->>Cliente: 401 Error
     else Token válido
-        Decorador->>Función: Permitir ejecución
-        Función->>Función: get_jwt_identity() → "5"
-        Función->>DB: SELECT * FROM users WHERE id = 5
-        DB-->>Función: User data
-        Función-->>Cliente: 200 {user data}
+        Decorador->>Funcion: Permitir ejecución
+        Funcion->>Funcion: get_jwt_identity() → "5"
+        Funcion->>DB: SELECT * FROM users WHERE id = 5
+        DB-->>Funcion: User data
+        Funcion-->>Cliente: 200 {user data}
     end
 ```
 
@@ -799,7 +796,7 @@ sequenceDiagram
     participant JWT as JWT Manager
     participant DB as Database
 
-    C->>S: GET /api/profile<br/>Header: Authorization: Bearer <token>
+    C->>S: GET /api/profile<br/>Header: Authorization: Bearer TOKEN_JWT
     S->>JWT: Verificar firma del token
     alt Token válido
         JWT-->>S: identity = "5"
