@@ -1,4 +1,4 @@
-# Step 2: JWT en Flask con flask-jwt-extended
+# Step 3: JWT en Flask con flask-jwt-extended
 
 ## 🎯 Objetivo
 
@@ -160,6 +160,38 @@ sequenceDiagram
 
 ---
 
+### Antes del código: ¿Qué es serializar?
+
+Cuando Flask responde a una petición, necesita enviar datos en formato **JSON** (texto plano). Pero SQLAlchemy nos devuelve **objetos Python** — y Python no sabe cómo convertir automáticamente un objeto complejo a JSON.
+
+```python
+# Esto NO funciona:
+user = User.query.get(5)
+return jsonify(user)  # ❌ TypeError: Object of type User is not JSON serializable
+```
+
+¿Por qué falla? Porque `user` es un objeto con métodos, conexiones a la base de datos, estado interno... JSON solo entiende tipos simples: textos, números, listas y diccionarios.
+
+La solución es crear un método `serialize()` que **extraiga los datos** del objeto y los ponga en un diccionario:
+
+```python
+# Esto SÍ funciona:
+return jsonify(user.serialize())  # ✅ → {"id": 5, "email": "luis@example.com", ...}
+```
+
+```mermaid
+flowchart LR
+    A["🐍 Objeto Python<br/>User(id=5, email='luis@...', password_hash='$2b$...')"]
+    -->|"serialize()"|
+    B["📖 Diccionario<br/>{id: 5, email: 'luis@...'}<br/>(sin password!)"]
+    -->|"jsonify()"|
+    C["📤 JSON por HTTP<br/>{\"id\": 5, \"email\": \"luis@...\"}"]
+```
+
+> 💡 `serialize()` también actúa como **filtro de seguridad**: decides qué campos exponer y cuáles ocultar (como `password_hash`).
+
+---
+
 ### El código del modelo
 
 ```python
@@ -316,6 +348,8 @@ sequenceDiagram
 
 Esta es la trinidad de `flask-jwt-extended`. Entender cómo se conectan es **fundamental**.
 
+Este también es el **mejor lugar del día 28** para explicar decoradores: aquí `@jwt_required()` ya no es teoría aislada, sino una pieza real del flujo de autenticación que acabas de construir con login + token.
+
 ### Primero: ¿Qué es un decorador en Python?
 
 Si ves `@algo` arriba de una función y no entiendes qué hace, esta sección es para ti.
@@ -369,6 +403,32 @@ get_profile = jwt_required()(get_profile)  # Envuelve la función
 ```
 
 No necesitas entender esto para usar decoradores — solo saber que **añaden comportamiento extra** a tus funciones.
+
+#### En el contexto de este día: ¿qué hace exactamente `@jwt_required()`?
+
+En JWT, el decorador cumple este papel:
+
+1. El usuario hace login y el backend crea un token con `create_access_token(...)`.
+2. El frontend guarda ese token y lo envía en el header `Authorization`.
+3. Cuando llega una petición a una ruta protegida, `@jwt_required()` corre **antes** que tu función.
+4. Si el token falla, Flask responde con `401` y tu función **ni siquiera se ejecuta**.
+5. Si el token es válido, entonces sí entra a tu función y `get_jwt_identity()` puede leer el `identity` guardado en el JWT.
+
+```python
+@app.route("/api/profile", methods=["GET"])
+@jwt_required()
+def get_profile():
+    current_user_id = get_jwt_identity()
+    return {"user_id": current_user_id}, 200
+```
+
+Orden real de ejecución en este ejemplo:
+
+1. Flask detecta que la URL `/api/profile` corresponde a `get_profile`.
+2. `@jwt_required()` inspecciona el header `Authorization`.
+3. Verifica formato, firma y expiración del token.
+4. Solo si todo está bien se ejecuta `get_profile()`.
+5. Dentro de `get_profile()`, `get_jwt_identity()` recupera el usuario autenticado.
 
 ---
 

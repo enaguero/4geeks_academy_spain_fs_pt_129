@@ -18,6 +18,7 @@ Al terminar este día deberías poder:
 - Describir qué es un JWT y su estructura (header.payload.signature)
 - Implementar login/registro con JWT en Flask usando `flask-jwt-extended`
 - Proteger endpoints del backend con `@jwt_required()`
+- Entender por qué `@jwt_required()` es un decorador y qué hace antes de ejecutar un endpoint
 - Crear rutas protegidas en React que solo se muestren si hay JWT válido
 - Implementar el flujo completo: Login → Guardar Token → Acceder a rutas privadas
 
@@ -74,7 +75,7 @@ day_28/
 ├── step2-que-es-jwt/
 │   └── README.md          # Anatomía de un JWT, claims, firma
 ├── step3-jwt-flask-backend/
-│   └── README.md          # Implementación con flask-jwt-extended
+│   └── README.md          # Implementación con flask-jwt-extended + decorators en contexto con @jwt_required()
 ├── step4-rutas-protegidas-react/
 │   └── README.md          # PrivateRoute, Context de auth
 └── step5-flujo-completo/
@@ -108,7 +109,7 @@ Para el frontend se asume que ya tienes un proyecto React con:
 1. `step0-conceptos-autenticacion` — Fundamentos teóricos
 2. `step1-glosario-tecnico` — Vocabulario esencial (consultar mientras avanzas)
 3. `step2-que-es-jwt` — Estructura y funcionamiento del token
-4. `step3-jwt-flask-backend` — Implementación en Flask
+4. `step3-jwt-flask-backend` — Implementación en Flask y explicación contextual de decorators con `@jwt_required()`
 5. `step4-rutas-protegidas-react` — Rutas privadas en React
 6. `step5-flujo-completo` — Integración frontend + backend
 
