@@ -285,6 +285,15 @@ Todas las clases y el contenido de apoyo en este repositorio han sido creados en
 
 ---
 
+### **Día 29: Gestión de Proyectos de Software**
+- **READ** – Ciclo de desarrollo de software (SDLC)
+- **READ** – Scrum: roles, artefactos y ceremonias
+- **READ** – Herramientas de gestión con Linear
+- **READ** – De pantallas a tickets: metodología
+- **READ** – Ejemplo completo: PetMatch (proyecto ficticio)
+
+---
+
 ### **Final Project**
 - **PROJECT** – [Final Project (start module)](https://4geeks.com/cohort/spain-fs-pt-129/full-stack-pt-18w/v4#final-project)
 ​
