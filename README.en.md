@@ -26,7 +26,7 @@ Each `day_XX/` folder contains:
 ### 1. Clone the repository (first time only)
 
 ```bash
-git clone [REPOSITORY_URL]
+git clone https://github.com/enaguero/4geeks_academy_spain_fs_pt_129.git
 cd 4geeks_academy_spain_fs_pt_129
 ```
 
@@ -46,27 +46,17 @@ pip3 install flask
 python3 server.py
 ```
 
-Then open your browser at `http://*******:3000`
+Then open your browser at `http://localhost:3000`
 
 ## 📋 Available Content
 
-### Day 1: HTML/CSS Fundamentals
-
-- **Project**: Instagram Post Card (3 incremental steps)
-- **Location**: `day_01/html-hello/`
-- **Topics**: HTML structure, Box model, Flexbox
-
-### Day 4: Terminal and Paths
-
-- **Tutorial**: Terminal commands and file management
-- **Location**: `day_04/index.md`
-- **Topics**: CLI, basic commands, absolute and relative paths
+Currently covered: **days 01, 04–29**. Each `day_XX/` folder has its own README with the day's content, exercises, and project. See the full syllabus below for the topic index.
 
 ## 💡 Tips
 
 - ✅ Check this repository whenever you need to review something
 - ✅ Practice with the exercises outside of class
-- ✅ The tutorials are originally written in Spanish to support learning; English translations are being added progressively
+- ✅ All material is available in **Spanish and English** — use the language toggle at the top of each file
 - ✅ Each project includes detailed documentation
 
 ## 🆘 Need Help?
@@ -289,14 +279,14 @@ All classes and supporting content in this repository are based on the material 
 ---
 
 ### **Day 29: Software Project Management**
-- **READ** – Software Development Life Cycle (SDLC)
-- **READ** – Scrum: roles, artifacts, and ceremonies
-- **READ** – Project management tools with Linear
-- **READ** – From screens to tickets: methodology
-- **READ** – Full example: PetMatch (fictional project)
+- **TUTORIAL** – [Software Development Life Cycle (SDLC)](day_29/step0-sdlc/README.en.md)
+- **TUTORIAL** – [Scrum: roles, artifacts, and ceremonies](day_29/step1-scrum/README.en.md)
+- **TUTORIAL** – [Project management tools with Linear](day_29/step2-herramientas-gestion/README.en.md)
+- **TUTORIAL** – [From screens to tickets: methodology](day_29/step3-de-pantallas-a-tickets/README.en.md)
+- **TUTORIAL** – [Full example: PetMatch (fictional project)](day_29/step4-ejemplo-proyecto-ficticio/README.en.md)
 
 ---
 
 ### **Final Project**
 - **PROJECT** – [Final Project (start module)](https://4geeks.com/cohort/spain-fs-pt-129/full-stack-pt-18w/v4#final-project)
-​
+

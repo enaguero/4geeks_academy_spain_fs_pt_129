@@ -26,7 +26,7 @@ Cada carpeta `day_XX/` contiene:
 ### 1. Clonar el repositorio (solo la primera vez)
 
 ```bash
-git clone [URL_DEL_REPOSITORIO]
+git clone https://github.com/enaguero/4geeks_academy_spain_fs_pt_129.git
 cd 4geeks_academy_spain_fs_pt_129
 ```
 
@@ -46,27 +46,17 @@ pip3 install flask
 python3 server.py
 ```
 
-Luego abre tu navegador en `http://*******:3000`
+Luego abre tu navegador en `http://localhost:3000`
 
 ## 📋 Contenido Disponible
 
-### Día 1: Fundamentos de HTML/CSS
-
-- **Proyecto**: Instagram Post Card (3 pasos incrementales)
-- **Ubicación**: `day_01/html-hello/`
-- **Temas**: Estructura HTML, Modelo de caja, Flexbox
-
-### Día 4: Terminal y Rutas
-
-- **Tutorial**: Comandos de terminal y gestión de archivos
-- **Ubicación**: `day_04/index.md`
-- **Temas**: CLI, comandos básicos, rutas absolutas y relativas
+Actualmente cubierto: **días 01, 04–29**. Cada carpeta `day_XX/` tiene su propio README con el detalle del contenido, ejercicios y proyecto del día. Consulta el syllabus completo más abajo para ver el índice de temas.
 
 ## 💡 Consejos
 
 - ✅ Consulta este repositorio siempre que necesites repasar algo
 - ✅ Practica con los ejercicios fuera de clase
-- ✅ Los tutoriales están en español para facilitar el aprendizaje
+- ✅ Todo el material está disponible en **español e inglés** — usa el selector de idioma al inicio de cada archivo
 - ✅ Cada proyecto incluye documentación detallada
 
 ## 🆘 ¿Necesitas Ayuda?
@@ -80,6 +70,7 @@ Si tienes dudas sobre algún tema:
 ---
 
 💪 ¡Sigue practicando y nos vemos en clase!
+
 ## 📖 Syllabus Completo
 
 Todas las clases y el contenido de apoyo en este repositorio han sido creados en base al material y estructura académica de 4Geeks Academy.
@@ -288,14 +279,14 @@ Todas las clases y el contenido de apoyo en este repositorio han sido creados en
 ---
 
 ### **Día 29: Gestión de Proyectos de Software**
-- **READ** – Ciclo de desarrollo de software (SDLC)
-- **READ** – Scrum: roles, artefactos y ceremonias
-- **READ** – Herramientas de gestión con Linear
-- **READ** – De pantallas a tickets: metodología
-- **READ** – Ejemplo completo: PetMatch (proyecto ficticio)
+- **TUTORIAL** – [Ciclo de desarrollo de software (SDLC)](day_29/step0-sdlc/README.md)
+- **TUTORIAL** – [Scrum: roles, artefactos y ceremonias](day_29/step1-scrum/README.md)
+- **TUTORIAL** – [Herramientas de gestión con Linear](day_29/step2-herramientas-gestion/README.md)
+- **TUTORIAL** – [De pantallas a tickets: metodología](day_29/step3-de-pantallas-a-tickets/README.md)
+- **TUTORIAL** – [Ejemplo completo: PetMatch (proyecto ficticio)](day_29/step4-ejemplo-proyecto-ficticio/README.md)
 
 ---
 
-### **Final Project**
-- **PROJECT** – [Final Project (start module)](https://4geeks.com/cohort/spain-fs-pt-129/full-stack-pt-18w/v4#final-project)
-​
+### **Proyecto Final**
+- **PROJECT** – [Proyecto Final (módulo inicial)](https://4geeks.com/cohort/spain-fs-pt-129/full-stack-pt-18w/v4#final-project)
+
