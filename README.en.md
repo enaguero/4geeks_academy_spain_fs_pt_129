@@ -2,6 +2,8 @@
 
 # 4Geeks Academy - Full Stack PT 129
 
+> 📖 **Documentation site**: [enaguero.github.io/4geeks_academy_spain_fs_pt_129](https://enaguero.github.io/4geeks_academy_spain_fs_pt_129/en/) — browsable version with sidebar navigation, search, and 🇪🇸/🇬🇧 language switcher.
+
 ## 📚 Class Material Repository
 
 This repository contains all the material, exercises, and tutorials we'll cover during the bootcamp. It is organized by class days so you can quickly review and revisit the content.
@@ -23,20 +25,33 @@ Each `day_XX/` folder contains:
 
 ## 🚀 How to Use This Repository
 
-### 1. Clone the repository (first time only)
+There are **two ways** to consume the material:
+
+### Option A: Documentation site (recommended for reading)
+
+Open [enaguero.github.io/4geeks_academy_spain_fs_pt_129/en/](https://enaguero.github.io/4geeks_academy_spain_fs_pt_129/en/) in your browser. You'll be able to:
+
+- 📚 Browse every day from the sidebar
+- 🔍 Full-text search from the top bar
+- 🇪🇸/🇬🇧 Switch languages from the top bar
+- 🌙 Toggle light and dark mode
+
+### Option B: Clone the repo (to run the code)
+
+#### 1. Clone (first time only)
 
 ```bash
 git clone https://github.com/enaguero/4geeks_academy_spain_fs_pt_129.git
 cd 4geeks_academy_spain_fs_pt_129
 ```
 
-### 2. Update the content (before each class)
+#### 2. Update the content (before each class)
 
 ```bash
 git pull origin main
 ```
 
-### 3. Run HTML projects
+#### 3. Run HTML projects
 
 Most HTML exercises include a development server. To run them:
 
@@ -47,6 +62,18 @@ python3 server.py
 ```
 
 Then open your browser at `http://localhost:3000`
+
+#### 4. Preview the docs site locally (optional)
+
+If you want to view the docs site on your machine:
+
+```bash
+python3 -m venv venv && source venv/bin/activate
+pip install -r requirements.txt
+mkdocs serve
+```
+
+Open `http://localhost:8000`.
 
 ## 📋 Available Content
 

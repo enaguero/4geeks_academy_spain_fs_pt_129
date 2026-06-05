@@ -34,3 +34,7 @@ node_modules/
 
 # Bases SQLite locales del dia 25
 day_25/sqlite/*.db
+
+# MkDocs build output
+_site/
+site/

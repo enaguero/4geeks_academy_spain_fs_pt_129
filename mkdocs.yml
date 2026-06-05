@@ -1,0 +1,131 @@
+site_name: 4Geeks Academy - Full Stack PT 129
+site_description: Material de clase del bootcamp Full Stack — bilingüe (ES/EN)
+site_url: https://enaguero.github.io/4geeks_academy_spain_fs_pt_129/
+site_author: Erwin Aguero
+
+repo_url: https://github.com/enaguero/4geeks_academy_spain_fs_pt_129
+repo_name: enaguero/4geeks_academy_spain_fs_pt_129
+edit_uri: edit/main/
+
+docs_dir: docs
+site_dir: _site
+use_directory_urls: true
+
+exclude_docs: |
+  /day_01/01-Flex/
+  /day_01/02-Grid/
+  /day_01/03-Position/
+  /day_01/04-IG-Feed/
+  /day_01/html-hello/
+  /day_04/challenge_instructions/index.html
+  /day_04/challenge_instructions/slides-data.json
+  /day_22/python_intro/
+  *.py
+  *.sh
+  *.html
+  *.css
+  *.js
+  *.json
+  *.sql
+  Makefile
+  requirements.txt
+  __init__.py
+
+theme:
+  name: material
+  language: es
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Cambiar a modo oscuro
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Cambiar a modo claro
+  font:
+    text: Inter
+    code: JetBrains Mono
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.top
+    - navigation.tracking
+    - navigation.indexes
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - toc.follow
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search:
+      lang:
+        - es
+        - en
+  - i18n:
+      docs_structure: suffix
+      languages:
+        - locale: es
+          default: true
+          name: 🇪🇸 Español
+          build: true
+          site_name: 4Geeks Academy - Full Stack PT 129
+          theme:
+            language: es
+          nav_translations:
+            Home: Inicio
+        - locale: en
+          name: 🇬🇧 English
+          build: true
+          site_name: 4Geeks Academy - Full Stack PT 129
+          theme:
+            language: en
+          nav_translations:
+            Inicio: Home
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/enaguero/4geeks_academy_spain_fs_pt_129
