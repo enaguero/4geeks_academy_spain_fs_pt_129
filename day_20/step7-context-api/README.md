@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](README.en.md)
+
 # 🌐 Step 7: Context API - Estado Global
 
 ## 🎯 Objetivo

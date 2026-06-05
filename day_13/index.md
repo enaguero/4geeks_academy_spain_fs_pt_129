@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](index.en.md)
+
 # Día 13: Random Card Generator - Proyecto Paso a Paso 🃏
 
 ## Introducción

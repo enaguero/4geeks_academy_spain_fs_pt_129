@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](README.en.md)
+
 # 📋 Día 29: Gestión de Proyectos de Software
 
 ## 📚 Contexto

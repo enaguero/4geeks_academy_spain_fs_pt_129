@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](README.en.md)
+
 # Step 0: El Ciclo de Desarrollo de Software (SDLC)
 
 ## 🎯 Objetivo

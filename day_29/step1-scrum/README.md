@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](README.en.md)
+
 # Step 1: Scrum — Roles, Artefactos y Ceremonias
 
 ## 🎯 Objetivo

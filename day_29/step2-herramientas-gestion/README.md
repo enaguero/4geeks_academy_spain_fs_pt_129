@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](README.en.md)
+
 # Step 2: Herramientas de Gestión — Linear
 
 ## 🎯 Objetivo

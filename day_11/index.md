@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](index.en.md)
+
 # Día 11: El DOM y Eventos en JavaScript
 
 ## ¿Qué es el DOM?

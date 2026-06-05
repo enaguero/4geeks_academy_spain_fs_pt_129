@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](example.en.md)
+
 # API Rest
 
 1. HTTP permite transferir informacion entre computadores

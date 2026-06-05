@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](README.en.md)
+
 # 🚀 Step 2: Primera Ruta Básica con React Router
 
 ## 🎯 Objetivo

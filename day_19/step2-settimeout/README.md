@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](README.en.md)
+
 # Step 2: setTimeout - Tu Primera Herramienta Asíncrona ⏱️
 
 ## 🔗 ¿Por qué Estudiamos setTimeout?

@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](README.en.md)
+
 # 🗃️ Día 25: SQL para principiantes (desde fundamentos de Python)
 
 ## 📚 Material oficial (fuente: README principal)

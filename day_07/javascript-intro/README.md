@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](README.en.md)
+
 # Introducción a JavaScript - Día 7
 
 Módulo de aprendizaje incremental sobre los fundamentos de JavaScript para principiantes.

@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](README.en.md)
+
 # Step 2: Ciclo de Vida del Componente 🔄
 
 ## ¿Qué es el Ciclo de Vida?

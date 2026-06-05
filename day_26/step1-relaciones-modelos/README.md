@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](README.en.md)
+
 # Step 1: Relaciones entre modelos (`1-1`, `1-N`, `N-N`)
 
 ## 🎯 Objetivo

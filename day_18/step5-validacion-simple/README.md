@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](README.en.md)
+
 # Step 5: Validación Simple ✅
 
 ## ¿Qué es Validación?

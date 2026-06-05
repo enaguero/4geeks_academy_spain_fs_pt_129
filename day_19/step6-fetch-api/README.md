@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](README.en.md)
+
 # Step 6: Fetch API 🌐
 
 ## 🔗 Contexto: ¿Dónde Estamos?

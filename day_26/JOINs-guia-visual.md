@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](JOINs-guia-visual.en.md)
+
 # 📊 Guía Visual de JOINs en SQL y SQLAlchemy
 
 ## 🎯 ¿Qué es un JOIN?

@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](LOOP-INFINITO-EJEMPLO.en.md)
+
 # ⚠️ Loop Infinito con useEffect - Ejemplo Concreto
 
 ## El Problema

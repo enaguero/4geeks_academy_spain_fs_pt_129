@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](README.en.md)
+
 # ✍️ Step 1: Sintaxis y Fundamentos de Python
 
 ## 🎯 Objetivo

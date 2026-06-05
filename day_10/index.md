@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](index.en.md)
+
 # Día 10: Buenas Prácticas y Estándares de Código
 
 ## ¿Por qué son Importantes los Estándares de Código?

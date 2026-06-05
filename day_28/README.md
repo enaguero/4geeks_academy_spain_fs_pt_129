@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](README.en.md)
+
 # 🔐 Día 28: Autenticación con JWT (JSON Web Tokens)
 
 ## 📚 Material oficial

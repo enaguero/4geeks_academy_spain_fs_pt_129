@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](README.en.md)
+
 # Tutorial: La Terminal, Comandos y Rutas
 
 ## 📺 Videos de Referencia

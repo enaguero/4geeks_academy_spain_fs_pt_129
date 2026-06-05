@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](ejercicios-practicos.en.md)
+
 # Ejercicios Prácticos - useState 🎮
 
 Este documento contiene ejercicios incrementales para dominar `useState` paso a paso.

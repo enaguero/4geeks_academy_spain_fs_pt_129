@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](README.en.md)
+
 # Resolución de Conflictos en Git: Ejemplo Completo
 
 ## Introducción

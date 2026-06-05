@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](README.en.md)
+
 # 🧭 Step 0: Ambiente Virtual + Contexto API + HTTP (Flask)
 
 ## 🎯 Objetivo

@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](README.en.md)
+
 # Step 3: De Pantallas a Tickets
 
 ## 🎯 Objetivo

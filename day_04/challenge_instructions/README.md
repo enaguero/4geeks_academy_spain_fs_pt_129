@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](README.en.md)
+
 # 🖥️ El Desafío de la Terminal - CMD Challenge
 
 Presentación interactiva usando Reveal.js para enseñar comandos básicos de terminal a través de un desafío práctico.

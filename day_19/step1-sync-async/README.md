@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](README.en.md)
+
 # Step 1: Síncrono vs Asíncrono 🔄
 
 ## ¿Qué es Código Síncrono?

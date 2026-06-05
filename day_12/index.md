@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](index.en.md)
+
 # Día 12: El DOM y Programación Event-Driven
 
 ## Parte 1: ¿Qué es el Front-End Development?

@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](README.en.md)
+
 # 🧭 Step 0: Contexto Backend + Python
 
 ## 🎯 Objetivo

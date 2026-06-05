@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](index.en.md)
+
 # Día 7: Introducción a JavaScript
 
 ## ¿Pero qué es programar?

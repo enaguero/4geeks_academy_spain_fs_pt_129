@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](README.en.md)
+
 # 🐍 Día 22: Intro a Python
 
 ## 🎯 Objetivos de Aprendizaje

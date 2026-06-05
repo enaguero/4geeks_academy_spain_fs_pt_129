@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](README.en.md)
+
 # 🏪 Step 8: useReducer + Context = Store Global
 
 ## 🎯 Objetivo

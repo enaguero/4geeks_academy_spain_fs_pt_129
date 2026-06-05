@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](README.en.md)
+
 # 🌌 Día 26: SQLAlchemy + Modelado Relacional (Instagram y StarWars)
 
 ## 📚 Material oficial identificado en el `README.md` principal

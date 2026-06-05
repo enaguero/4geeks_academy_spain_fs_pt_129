@@ -1,3 +1,5 @@
+🇪🇸 **Español** | [🇬🇧 English](class.en.md)
+
 # Programación Orientada a Objetos
 
 ## Problema
