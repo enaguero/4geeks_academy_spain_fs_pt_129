@@ -63,6 +63,9 @@ theme:
   icon:
     repo: fontawesome/brands/github
 
+hooks:
+  - hooks/i18n_toggle.py
+
 plugins:
   - search:
       lang:
