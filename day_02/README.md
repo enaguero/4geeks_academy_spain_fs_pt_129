@@ -4,7 +4,96 @@
 
 ## 📚 Contexto
 
-Aprende a depurar código y a usar Bootstrap — el framework CSS más popular del mundo — para construir interfaces atractivas en minutos.
+Hoy aprenderás dos superpoderes que vas a usar todos los días como desarrollador: **depurar código** (encontrar y arreglar errores) y **usar un framework CSS** para construir interfaces atractivas en una fracción del tiempo.
+
+Bootstrap es el framework CSS más popular del mundo. Saber Bootstrap te permite prototipar landings, dashboards y feeds en horas, no en días.
+
+---
+
+## 🎯 Objetivos del día
+
+Al terminar este día deberías poder:
+
+- Explicar qué es debugging y aplicar un método para depurar HTML y CSS con DevTools
+- Entender qué es un framework CSS y por qué Bootstrap es útil
+- Incluir Bootstrap en una página vía CDN o npm
+- Usar el sistema de grid (`container`, `row`, `col-*`) con sus breakpoints
+- Componer páginas usando componentes (navbar, cards, buttons, forms) y utilidades
+- Construir un feed estilo Instagram completo con Bootstrap
+
+---
+
+## 🗺️ Mapa Mental: Bootstrap + Debugging
+
+```mermaid
+mindmap
+  root((Día 2))
+    Debugging
+      Mindset
+      DevTools
+        Elements
+        Console
+        Network
+      HTML
+        Validación
+        Estructura
+      CSS
+        Especificidad
+        Cascada
+        Box model
+    Bootstrap
+      Qué es
+      CDN vs npm
+      Anatomía base
+    Grid
+      container
+      row
+      col
+      Breakpoints
+        sm
+        md
+        lg
+        xl
+    Componentes
+      Navbar
+      Cards
+      Buttons
+      Forms
+    Proyecto
+      Instagram Feed
+      Header
+      Stories
+      Posts
+      Sidebar
+```
+
+---
+
+## 🗂️ Estructura del día
+
+```text
+day_02/
+├── README.md
+├── step0-debugging/
+│   └── README.md          # Debugging: qué es, mindset, HTML, CSS, DevTools
+├── step1-bootstrap-intro/
+│   └── README.md          # Qué es Bootstrap, CDN vs npm, anatomía de página
+├── step2-grid-y-componentes/
+│   └── README.md          # Grid system, breakpoints y componentes clave
+└── step3-proyecto-instagram-feed/
+    └── README.md          # Walkthrough: feed estilo Instagram con Bootstrap
+```
+
+---
+
+## 🧭 Orden sugerido de estudio
+
+1. `step0-debugging` — Aprende a investigar errores antes de aprender herramientas nuevas
+2. `step1-bootstrap-intro` — Conoce el framework y cómo añadirlo a un proyecto
+3. `step2-grid-y-componentes` — Domina el grid y los componentes más usados
+4. `step3-proyecto-instagram-feed` — Aplica todo construyendo un feed real
+
+---
 
 ## 🎯 Recursos del syllabus
 
@@ -16,12 +105,14 @@ Aprende a depurar código y a usar Bootstrap — el framework CSS más popular d
 - **PROJECT** – [Instagram Photo Feed with Bootstrap](https://4geeks.com/syllabus/spain-fs-pt-129/project/instagram-feed-bootstrap)
 - **ANSWER** – [Bootstrap Quiz](https://4geeks.com/syllabus/spain-fs-pt-129/answer/bootstrap-quiz)
 
-> 💡 No hay carpeta local de ejercicios para este día — todo el material se trabaja en los enlaces de arriba.
+---
 
-## ✅ Checklist del día
+## ✅ Checklist de cierre del día
 
-- [ ] Sé qué es debugging y cómo enfrentarme a un error
-- [ ] Conozco el sistema de grid de Bootstrap (`container`, `row`, `col`)
+- [ ] Sé qué es debugging y tengo un método para enfrentarme a un error
+- [ ] Puedo inspeccionar y modificar HTML/CSS en vivo con DevTools
+- [ ] Entiendo qué problema resuelve Bootstrap y cuándo usarlo
+- [ ] Conozco el sistema de grid de Bootstrap (`container`, `row`, `col-*`) y sus breakpoints
 - [ ] Sé usar componentes de Bootstrap (navbar, cards, buttons, forms)
 - [ ] Completé el proyecto del Instagram Feed con Bootstrap
 - [ ] Aprobé el Bootstrap Quiz
